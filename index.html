@@ -79,7 +79,7 @@ button:hover {
 }
 
 .gallery img {
-  width: 180px; /* smaller images */
+  width: 180px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   opacity: 0;
@@ -134,17 +134,7 @@ button:hover {
   transition: opacity 1.5s ease;
 }
 
-#surprisePhoto {
-  max-width: 60%;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transform: scale(0.8);
-  transition: transform 1.5s ease, opacity 1.5s ease;
-  opacity: 0;
-  z-index: 2;
-}
-
-/* Heart around final image */
+/* Heart and image wrapper */
 .heart-wrapper {
   position: relative;
   display: flex;
@@ -156,7 +146,7 @@ button:hover {
   position: absolute;
   width: 80%;
   max-width: 600px;
-  z-index: 1;
+  z-index: 1; /* behind the image */
 }
 
 .heart-path {
@@ -167,6 +157,17 @@ button:hover {
   stroke-dashoffset: 1200;
   animation: drawHeart 4s ease forwards;
   vector-effect: non-scaling-stroke;
+}
+
+#surprisePhoto {
+  position: relative; /* on top of heart */
+  z-index: 2;
+  max-width: 60%;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  transform: scale(0.8);
+  transition: transform 1.5s ease, opacity 1.5s ease;
+  opacity: 0;
 }
 
 @keyframes drawHeart { to { stroke-dashoffset: 0; } }
@@ -213,9 +214,9 @@ button:hover {
   <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
 
   <div class="gallery">
-    <img src="cyprus1.jpg">
-    <img src="cyprus2.jpg">
     <img src="cyprus3.jpg">
+    <img src="cyprus2.jpg">
+    <img src="cyprus1.jpg">
   </div>
 
   <button onclick="nextPage()">Next</button>
@@ -237,8 +238,7 @@ button:hover {
         L20 90
         A40 40 0 0 1 100 30
         A40 40 0 0 1 180 90
-        Z"
-      />
+        Z"/>
     </svg>
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
   </div>
@@ -261,16 +261,12 @@ function nextPage() {
   if(current < pages.length) {
     pages[current].classList.add('active');
 
-    // Bonus typewriter
     if(pages[current].id === "bonus") {
       setTimeout(()=> typeWriter("typewriter", message), 1000);
       setTimeout(()=> typeWriter("typewriterBonus", bonusMessage), 5000);
-
-      // Fade to final surprise
       setTimeout(()=> fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise")), 9000);
     }
 
-    // Animate final image
     if(pages[current].id === "finalSurprise") {
       const img = document.getElementById("surprisePhoto");
       setTimeout(()=>{
