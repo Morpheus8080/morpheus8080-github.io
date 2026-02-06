@@ -11,51 +11,49 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); color: white; overflow-x: hidden; overflow-y: hidden; }
 
-/* Stars background */
+/* Stars */
 .stars {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(#ffffff 1px, transparent 1px);
+  background: radial-gradient(#fff 1px, transparent 1px);
   background-size: 40px 40px;
   opacity: 0.1;
   z-index: -1;
   animation: twinkle 6s infinite alternate, drift 30s linear infinite;
-  transform: translate(0,0);
 }
 
-/* Page layout */
+/* Pages */
 .page {
   min-height: 100vh;
   width: 100%;
-  display: flex; /* always flex, don't use display:none */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 15px;
   text-align: center;
+  padding: 20px;
   opacity: 0;
-  pointer-events: none;
   transform: translateY(20px);
+  pointer-events: none;
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-
 .page.active {
   opacity: 1;
-  pointer-events: auto;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
-/* Text styling */
+/* Text & buttons */
 h1 { font-size: 2.5rem; margin-bottom: 15px; }
 h2 { font-weight: 300; margin-bottom: 25px; }
-p { max-width: 90%; line-height: 1.6; margin-bottom: 25px; font-size: 1rem; }
-button { background: transparent; border: 2px solid white; color: white; padding: 10px 25px; font-size: 1rem; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; }
+p { max-width: 90%; line-height: 1.6; margin-bottom: 25px; }
+button { padding: 10px 25px; border-radius: 30px; border: 2px solid #fff; background: transparent; color: white; cursor: pointer; transition: all 0.3s ease; }
 button:hover { background: white; color: #203a43; transform: scale(1.05); }
-.hint { font-size: 1rem; opacity: 0.85; animation: float 3s ease-in-out infinite; }
+.hint { animation: float 3s ease-in-out infinite; }
 
 /* Gallery */
-.gallery { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; justify-content: center; }
+.gallery { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 25px; }
 .gallery img { flex: 1 1 250px; max-width: 300px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); opacity: 0; transform: translateY(30px); animation: photoFade 2s ease forwards; }
 .gallery img:nth-child(1) { animation-delay: 1s; }
 .gallery img:nth-child(2) { animation-delay: 2.5s; }
@@ -66,13 +64,13 @@ button:hover { background: white; color: #203a43; transform: scale(1.05); }
 
 /* Animations */
 @keyframes blink { 50% { border-color: transparent; } }
-@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-@keyframes photoFade { from { opacity: 0; transform: translateY(30px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes twinkle { 0% { opacity: 0.05; } 25% { opacity: 0.15; } 50% { opacity: 0.1; } 75% { opacity: 0.12; } 100% { opacity: 0.08; } }
-@keyframes drift { 0% { transform: translate(0px,0px); } 25% { transform: translate(5px,-5px); } 50% { transform: translate(-5px,3px); } 75% { transform: translate(3px,5px); } 100% { transform: translate(0px,0px); } }
+@keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+@keyframes photoFade { from { opacity: 0; transform: translateY(30px) scale(0.92); } to { opacity:1; transform: translateY(0) scale(1); } }
+@keyframes twinkle { 0%{opacity:0.05;}25%{opacity:0.15;}50%{opacity:0.1;}75%{opacity:0.12;}100%{opacity:0.08;} }
+@keyframes drift { 0%{transform:translate(0,0);}25%{transform:translate(5px,-5px);}50%{transform:translate(-5px,3px);}75%{transform:translate(3px,5px);}100%{transform:translate(0,0);} }
 
 /* Responsive */
-@media (max-width: 600px) { h1 { font-size: 2rem; } h2 { font-size: 1.2rem; } p, .hint { font-size: 0.95rem; } button { padding: 8px 20px; font-size: 0.9rem; } #typewriter { font-size: 1.2rem; min-height: 40px; } .gallery img { max-width: 90%; } }
+@media (max-width:600px) { h1{font-size:2rem;} h2{font-size:1.2rem;} p,.hint{font-size:0.95rem;} button{padding:8px 20px;font-size:0.9rem;} #typewriter{font-size:1.2rem; min-height:40px;} .gallery img{max-width:90%;} }
 </style>
 </head>
 
@@ -122,7 +120,6 @@ let current = 0;
 const pages = document.querySelectorAll('.page');
 const message = "Happy 21st Birthday Amy";
 let index = 0;
-const stars = document.getElementById('stars');
 
 function startExperience() {
   document.getElementById("bgMusic").play();
@@ -130,44 +127,15 @@ function startExperience() {
 }
 
 function nextPage() {
-  if (current >= pages.length) return;
+  if (current >= pages.length - 1) return;
 
-  const currentPage = pages[current];
+  pages[current].classList.remove('active'); // hide current
+  current++;
+  pages[current].classList.add('active'); // show next
 
-  // Fade out current page
-  currentPage.style.opacity = 0;
-  currentPage.style.transform = 'translateY(20px)';
-  currentPage.style.pointerEvents = 'none';
-
-  setTimeout(() => {
-    currentPage.classList.remove('active'); // remove active after fade
-    current++;
-
-    if (current < pages.length) {
-      const nextPageEl = pages[current];
-      nextPageEl.classList.add('active');
-
-      // Reset opacity and transform
-      nextPageEl.style.opacity = 0;
-      nextPageEl.style.transform = 'translateY(20px)';
-      nextPageEl.style.pointerEvents = 'none';
-
-      // Fade in next page
-      setTimeout(() => {
-        nextPageEl.style.opacity = 1;
-        nextPageEl.style.transform = 'translateY(0)';
-        nextPageEl.style.pointerEvents = 'auto';
-      }, 50);
-
-      // Parallax + random drift for stars
-      stars.style.transform = `translate(${Math.random()*10-5}px, ${-current*15 + Math.random()*10-5}px)`;
-
-      // Typewriter on final page
-      if (current === pages.length - 1) {
-        typeWriter();
-      }
-    }
-  }, 850); // matches transition
+  if (current === pages.length - 1) {
+    typeWriter();
+  }
 }
 
 function typeWriter() {
