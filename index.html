@@ -18,7 +18,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   color: white;
-  overflow: hidden;
+  overflow: hidden; /* keep other pages fullscreen */
 }
 
 .stars {
@@ -144,6 +144,28 @@ button:hover {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Scrollable final page */
+#final {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 60px;
+  scroll-behavior: smooth;
+}
+
+/* Optional scrollbar styling */
+#final::-webkit-scrollbar {
+  width: 8px;
+}
+
+#final::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
+
+#final::-webkit-scrollbar-track {
+  background: transparent;
+}
 </style>
 </head>
 
@@ -191,7 +213,6 @@ button:hover {
     <img src="cyprus1.jpg">
     <img src="cyprus2.jpg">
     <img src="cyprus3.jpg">
-    <img src="couple1.png">
   </div>
 
   <div id="typewriter"></div>
