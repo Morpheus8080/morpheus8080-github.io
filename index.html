@@ -96,7 +96,7 @@ button:hover {
 }
 
 .gallery img {
-  width: 280px;
+  width: 180px; /* smaller images */
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   opacity: 0;
@@ -117,6 +117,12 @@ button:hover {
   border-right: 3px solid white;
   padding-right: 10px;
   animation: blink 0.8s infinite;
+  text-align: center; /* center the text */
+}
+
+#typewriter.show {
+  opacity: 1;
+  transition: opacity 1.5s ease;
 }
 
 @keyframes blink {
@@ -180,10 +186,10 @@ button:hover {
 }
 
 #finalSurprise img {
-  max-width: 60%;           /* smaller image */
+  max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transform: scale(0.8);    /* start slightly smaller */
+  transform: scale(0.8);
   transition: transform 1.5s ease, opacity 1.5s ease;
   opacity: 0;
 }
@@ -236,7 +242,6 @@ button:hover {
     <img src="cyprus3.jpg">
   </div>
 
-  <div id="typewriter"></div>
   <button onclick="nextPage()">Next</button>
 </div>
 
@@ -244,7 +249,9 @@ button:hover {
 <div class="page" id="bonus">
   <h1>Can’t Wait! 🏖️</h1>
   <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
-  <div id="typewriterBonus"></div>
+
+  <!-- Centered birthday message below images -->
+  <div id="typewriter"></div>
 </div>
 
 <!-- Final Surprise Page -->
@@ -270,14 +277,20 @@ function nextPage() {
   if (current < pages.length) {
     pages[current].classList.add('active');
 
-    if (pages[current].id === "final") {
-      setTimeout(() => typeWriter("typewriter", message), 1000);
-    }
-
     if (pages[current].id === "bonus") {
-      setTimeout(() => typeWriter("typewriterBonus", bonusMessage), 1000);
+      // Show birthday message under images
+      setTimeout(() => {
+        const typewriterEl = document.getElementById("typewriter");
+        typewriterEl.classList.add("show");
+        typeWriter("typewriter", message);
+      }, 1000);
 
-      // After 5 seconds, fade out bonus page and fade in finalSurprise page
+      // Optional: bonus message after
+      setTimeout(() => {
+        typeWriter("typewriterBonus", bonusMessage);
+      }, 5000);
+
+      // Fade to final surprise page
       setTimeout(() => {
         fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise"));
       }, 9000);
@@ -287,18 +300,14 @@ function nextPage() {
 
 // Fade out one element and fade in another with zoom effect for image
 function fadeOutIn(outEl, inEl) {
-  // Fade out previous page
   outEl.style.transition = "opacity 1.5s ease";
   outEl.style.opacity = 0;
 
   setTimeout(() => {
     outEl.classList.remove('active');
-
-    // Fade in new page
     inEl.classList.add('active');
     inEl.style.opacity = 1;
 
-    // Animate image zoom + fade if exists
     const img = inEl.querySelector("img");
     if (img) {
       img.style.opacity = 1;
