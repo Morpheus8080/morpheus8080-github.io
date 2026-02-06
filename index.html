@@ -41,21 +41,9 @@ body {
 
 .page.active { display: flex; }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-weight: 300;
-  margin-bottom: 30px;
-}
-
-p {
-  max-width: 700px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
+h1 { font-size: 3rem; margin-bottom: 20px; }
+h2 { font-weight: 300; margin-bottom: 30px; }
+p { max-width: 700px; line-height: 1.6; margin-bottom: 30px; }
 
 button {
   background: transparent;
@@ -130,7 +118,6 @@ button:hover {
   scroll-behavior: smooth;
 }
 
-/* Optional scrollbar styling */
 #final::-webkit-scrollbar { width: 8px; }
 #final::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
 #final::-webkit-scrollbar-track { background: transparent; }
@@ -157,7 +144,7 @@ button:hover {
   z-index: 2;
 }
 
-/* Heart around the final image */
+/* Heart around final image */
 .heart-wrapper {
   position: relative;
   display: flex;
@@ -179,6 +166,7 @@ button:hover {
   stroke-dasharray: 1200;
   stroke-dashoffset: 1200;
   animation: drawHeart 4s ease forwards;
+  vector-effect: non-scaling-stroke;
 }
 
 @keyframes drawHeart { to { stroke-dashoffset: 0; } }
@@ -243,13 +231,14 @@ button:hover {
 <!-- Final Surprise Page with Heart -->
 <div class="page" id="finalSurprise">
   <div class="heart-wrapper">
-    <svg viewBox="0 0 200 180" class="heart-svg">
-      <path class="heart-path"
-        d="M100 170
-           L20 90
-           A40 40 0 0 1 100 30
-           A40 40 0 0 1 180 90
-           Z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 200 180" class="heart-svg">
+      <path class="heart-path" d="
+        M100 170
+        L20 90
+        A40 40 0 0 1 100 30
+        A40 40 0 0 1 180 90
+        Z"
+      />
     </svg>
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
   </div>
