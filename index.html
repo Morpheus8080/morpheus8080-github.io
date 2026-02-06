@@ -18,7 +18,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   color: white;
-  overflow: hidden; /* other pages fullscreen */
+  overflow: hidden;
 }
 
 .stars {
@@ -91,12 +91,13 @@ button:hover {
   display: flex;
   gap: 30px;
   margin-top: 30px;
+  margin-bottom: 40px; /* lifts images away from the Next button */
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .gallery img {
-  width: 180px; /* smaller images */
+  width: 180px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   opacity: 0;
@@ -107,73 +108,21 @@ button:hover {
 .gallery img:nth-child(1) { animation-delay: 0.5s; }
 .gallery img:nth-child(2) { animation-delay: 1.5s; }
 .gallery img:nth-child(3) { animation-delay: 2.5s; }
-.gallery img:nth-child(4) { animation-delay: 3.5s; }
 
-/* Typewriter */
-#typewriter, #typewriterBonus {
+#typewriter {
   font-size: 2rem;
   margin-top: 40px;
   min-height: 60px;
   border-right: 3px solid white;
   padding-right: 10px;
   animation: blink 0.8s infinite;
-  text-align: center; /* center the text */
 }
 
-#typewriter.show {
-  opacity: 1;
-  transition: opacity 1.5s ease;
-}
+@keyframes blink { 50% { border-color: transparent; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+@keyframes photoFade { from { opacity: 0; transform: translateY(30px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes photoFade {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Scrollable final page */
-#final {
-  overflow-y: auto;
-  max-height: 100vh;
-  padding-bottom: 60px;
-  scroll-behavior: smooth;
-}
-
-/* Optional scrollbar styling */
-#final::-webkit-scrollbar {
-  width: 8px;
-}
-
-#final::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 4px;
-}
-
-#final::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Final Surprise Page */
 #finalSurprise {
   display: flex;
   justify-content: center;
@@ -199,42 +148,17 @@ button:hover {
 <body>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
-
 <div class="stars"></div>
 
-<!-- Page 1 -->
 <div class="page active">
   <h1>Happy 21st Birthday, Amy ✨</h1>
-  <h2>Your first clue awaits…</h2>
-  <p class="hint">This journey is about memories, not things. Somewhere beautiful awaits.</p>
+  <p class="hint">This journey is about memories, not things.</p>
   <button onclick="startExperience()">Begin</button>
 </div>
 
-<!-- Page 2 -->
 <div class="page">
-  <h1>Clue Two 🌍</h1>
-  <p class="hint">Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
-  <button onclick="nextPage()">Next</button>
-</div>
-
-<!-- Page 3 -->
-<div class="page">
-  <h1>Clue Three 🌊</h1>
-  <p class="hint">This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
-  <button onclick="nextPage()">Keep Going</button>
-</div>
-
-<!-- Page 4 -->
-<div class="page">
-  <h1>Final Hint ✈️</h1>
-  <p class="hint">Pack light… but don’t forget your passport.</p>
-  <button onclick="nextPage()">Reveal</button>
-</div>
-
-<!-- Final Page -->
-<div class="page" id="final">
-  <h1>Surprise! 🌴</h1>
-  <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
+  <h1>Surprise 🌴</h1>
+  <p>You’re going on a <strong>7-night holiday to Cyprus</strong>.</p>
 
   <div class="gallery">
     <img src="cyprus1.jpg">
@@ -245,26 +169,19 @@ button:hover {
   <button onclick="nextPage()">Next</button>
 </div>
 
-<!-- Bonus Page -->
-<div class="page" id="bonus">
-  <h1>Can’t Wait! 🏖️</h1>
-  <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
-
-  <!-- Centered birthday message below images -->
+<div class="page">
   <div id="typewriter"></div>
+  <button onclick="nextPage()">Reveal</button>
 </div>
 
-<!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
-  <img src="cyprus3.jpg" alt="Surprise Photo" id="surprisePhoto">
+  <img src="cyprus3.jpg">
 </div>
 
 <script>
 let current = 0;
 const pages = document.querySelectorAll('.page');
-
 const message = "Happy 21st Birthday Amy — Love You, Josh x";
-const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
 
 function startExperience() {
   document.getElementById("bgMusic").play();
@@ -276,53 +193,15 @@ function nextPage() {
   current++;
   if (current < pages.length) {
     pages[current].classList.add('active');
-
-    if (pages[current].id === "bonus") {
-      // Show birthday message under images
-      setTimeout(() => {
-        const typewriterEl = document.getElementById("typewriter");
-        typewriterEl.classList.add("show");
-        typeWriter("typewriter", message);
-      }, 1000);
-
-      // Optional: bonus message after
-      setTimeout(() => {
-        typeWriter("typewriterBonus", bonusMessage);
-      }, 5000);
-
-      // Fade to final surprise page
-      setTimeout(() => {
-        fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise"));
-      }, 9000);
-    }
+    if (current === 2) typeWriter();
   }
 }
 
-// Fade out one element and fade in another with zoom effect for image
-function fadeOutIn(outEl, inEl) {
-  outEl.style.transition = "opacity 1.5s ease";
-  outEl.style.opacity = 0;
-
-  setTimeout(() => {
-    outEl.classList.remove('active');
-    inEl.classList.add('active');
-    inEl.style.opacity = 1;
-
-    const img = inEl.querySelector("img");
-    if (img) {
-      img.style.opacity = 1;
-      img.style.transform = "scale(1)";
-    }
-  }, 1500);
-}
-
-// Typewriter effect
-function typeWriter(elementId, msg) {
+function typeWriter() {
   let i = 0;
   function type() {
-    if (i < msg.length) {
-      document.getElementById(elementId).innerHTML += msg.charAt(i);
-      i++;
+    if (i < message.length) {
+      document.getElementById("typewriter").innerHTML += message.charAt(i++);
       setTimeout(type, 80);
     }
   }
