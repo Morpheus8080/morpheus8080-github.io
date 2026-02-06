@@ -18,7 +18,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   color: white;
-  overflow: hidden; /* keep other pages fullscreen */
+  overflow: hidden; /* other pages fullscreen */
 }
 
 .stars {
@@ -166,6 +166,24 @@ button:hover {
 #final::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Final Surprise Page */
+#finalSurprise {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+#finalSurprise img {
+  max-width: 90%;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 
@@ -226,6 +244,11 @@ button:hover {
   <div id="typewriterBonus"></div>
 </div>
 
+<!-- Final Surprise Page -->
+<div class="page" id="finalSurprise">
+  <img src="cyprus3.jpg" alt="Surprise Photo" id="surprisePhoto">
+</div>
+
 <script>
 let current = 0;
 const pages = document.querySelectorAll('.page');
@@ -244,18 +267,35 @@ function nextPage() {
   if (current < pages.length) {
     pages[current].classList.add('active');
 
-    // Trigger typewriter on final page
     if (pages[current].id === "final") {
       setTimeout(() => typeWriter("typewriter", message), 1000);
     }
 
-    // Trigger typewriter on bonus page
     if (pages[current].id === "bonus") {
       setTimeout(() => typeWriter("typewriterBonus", bonusMessage), 1000);
+
+      // After 5 seconds, fade out bonus page and fade in finalSurprise page
+      setTimeout(() => {
+        fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise"));
+      }, 5000);
     }
   }
 }
 
+// Fade out one element and fade in another
+function fadeOutIn(outEl, inEl) {
+  outEl.style.transition = "opacity 1.5s ease";
+  inEl.style.transition = "opacity 1.5s ease";
+
+  outEl.style.opacity = 0;
+  setTimeout(() => {
+    outEl.classList.remove('active');
+    inEl.classList.add('active');
+    inEl.style.opacity = 1;
+  }, 1500);
+}
+
+// Typewriter effect
 function typeWriter(elementId, msg) {
   let i = 0;
   function type() {
