@@ -18,9 +18,10 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
+/* Stars background */
 .stars {
   position: fixed;
   width: 100%;
@@ -31,6 +32,7 @@ body {
   z-index: -1;
 }
 
+/* Page layout */
 .page {
   min-height: 100vh;
   width: 100%;
@@ -38,7 +40,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 20px 15px;
   text-align: center;
   animation: fadeIn 1s ease;
 }
@@ -47,27 +49,29 @@ body {
   display: flex;
 }
 
+/* Text styling */
 h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
 h2 {
   font-weight: 300;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 p {
-  max-width: 700px;
+  max-width: 90%;
   line-height: 1.6;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  font-size: 1rem;
 }
 
 button {
   background: transparent;
   border: 2px solid white;
   color: white;
-  padding: 12px 30px;
+  padding: 10px 25px;
   font-size: 1rem;
   border-radius: 30px;
   cursor: pointer;
@@ -81,7 +85,7 @@ button:hover {
 }
 
 .hint {
-  font-size: 1.2rem;
+  font-size: 1rem;
   opacity: 0.85;
   animation: float 3s ease-in-out infinite;
 }
@@ -89,14 +93,15 @@ button:hover {
 /* Gallery */
 .gallery {
   display: flex;
-  gap: 30px;
-  margin-top: 30px;
+  gap: 15px;
+  margin-top: 25px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .gallery img {
-  width: 320px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   opacity: 0;
@@ -106,17 +111,19 @@ button:hover {
 
 .gallery img:nth-child(1) { animation-delay: 1s; }
 .gallery img:nth-child(2) { animation-delay: 2.5s; }
+.gallery img:nth-child(3) { animation-delay: 4s; }
 
 /* Typewriter */
 #typewriter {
-  font-size: 2rem;
-  margin-top: 40px;
-  min-height: 60px;
+  font-size: 1.5rem;
+  margin-top: 30px;
+  min-height: 50px;
   border-right: 3px solid white;
   padding-right: 10px;
   animation: blink 0.8s infinite;
 }
 
+/* Animations */
 @keyframes blink {
   50% { border-color: transparent; }
 }
@@ -141,6 +148,16 @@ button:hover {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.2rem; }
+  p, .hint { font-size: 0.95rem; }
+  button { padding: 8px 20px; font-size: 0.9rem; }
+  #typewriter { font-size: 1.2rem; min-height: 40px; }
+  .gallery img { max-width: 90%; }
 }
 </style>
 </head>
@@ -181,9 +198,9 @@ button:hover {
   <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
 
   <div class="gallery">
-    <img src="cyprus1.jpg">
-    <img src="cyprus2.jpg">
-    <img src="cyprus3.jpg">
+    <img src="cyprus1.jpg" alt="Cyprus 1">
+    <img src="cyprus2.jpg" alt="Cyprus 2">
+    <img src="cyprus3.jpg" alt="Cyprus 3">
   </div>
 
   <div id="typewriter"></div>
