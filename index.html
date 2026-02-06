@@ -141,13 +141,14 @@ button:hover {
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 20px;
+  padding: 40px 0; /* extra space for heart */
 }
 
 .heart-svg {
   position: absolute;
   width: 80%;
-  max-width: 600px;
+  max-width: 500px;
+  height: auto;
   z-index: 1; /* behind image */
 }
 
@@ -155,26 +156,24 @@ button:hover {
   fill: none;
   stroke: #ff5a7a;
   stroke-width: 6;
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
   animation: drawHeart 4s ease forwards;
-  vector-effect: non-scaling-stroke;
 }
 
 #surprisePhoto {
   position: relative;
-  z-index: 2; /* above heart */
+  z-index: 2;
   max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   transform: scale(0.8);
-  opacity: 1; /* make visible immediately */
+  opacity: 1;
   transition: transform 1.5s ease;
 }
 
-@keyframes drawHeart {
-  to { stroke-dashoffset: 0; }
-}
+@keyframes drawHeart { to { stroke-dashoffset: 0; } }
+
 </style>
 </head>
 
@@ -236,13 +235,12 @@ button:hover {
 <!-- Final Surprise Page with Heart -->
 <div class="page" id="finalSurprise">
   <div class="heart-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" class="heart-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="heart-svg" preserveAspectRatio="xMidYMid meet">
       <path class="heart-path" d="
-        M100 170
-        L20 90
-        A40 40 0 0 1 100 30
-        A40 40 0 0 1 180 90
-        Z"/>
+        M200,370
+        C50,250 50,150 200,100
+        C350,150 350,250 200,370
+      " />
     </svg>
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
   </div>
@@ -273,10 +271,7 @@ function nextPage() {
 
     if(pages[current].id === "finalSurprise") {
       const img = document.getElementById("surprisePhoto");
-      setTimeout(()=>{
-        img.style.opacity=1;
-        img.style.transform="scale(1)";
-      },500);
+      setTimeout(()=>{ img.style.transform="scale(1)"; },500);
     }
   }
 }
