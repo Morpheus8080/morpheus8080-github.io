@@ -8,17 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   color: white;
-  overflow: hidden; /* other pages fullscreen */
+  overflow: hidden;
 }
 
 .stars {
@@ -43,9 +39,7 @@ body {
   animation: fadeIn 1s ease;
 }
 
-.page.active {
-  display: flex;
-}
+.page.active { display: flex; }
 
 h1 {
   font-size: 3rem;
@@ -93,6 +87,7 @@ button:hover {
   margin-top: 30px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .gallery img {
@@ -117,39 +112,15 @@ button:hover {
   border-right: 3px solid white;
   padding-right: 10px;
   animation: blink 0.8s infinite;
-  text-align: center; /* center the text */
+  text-align: center;
 }
 
-#typewriter.show {
-  opacity: 1;
-  transition: opacity 1.5s ease;
-}
+#typewriter.show { opacity: 1; transition: opacity 1.5s ease; }
 
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes photoFade {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+@keyframes blink { 50% { border-color: transparent; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+@keyframes photoFade { from { opacity: 0; transform: translateY(30px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
 /* Scrollable final page */
 #final {
@@ -160,18 +131,9 @@ button:hover {
 }
 
 /* Optional scrollbar styling */
-#final::-webkit-scrollbar {
-  width: 8px;
-}
-
-#final::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 4px;
-}
-
-#final::-webkit-scrollbar-track {
-  background: transparent;
-}
+#final::-webkit-scrollbar { width: 8px; }
+#final::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+#final::-webkit-scrollbar-track { background: transparent; }
 
 /* Final Surprise Page */
 #finalSurprise {
@@ -185,21 +147,47 @@ button:hover {
   transition: opacity 1.5s ease;
 }
 
-#finalSurprise img {
+#surprisePhoto {
   max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   transform: scale(0.8);
   transition: transform 1.5s ease, opacity 1.5s ease;
   opacity: 0;
+  z-index: 2;
 }
+
+/* Heart around the final image */
+.heart-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart-svg {
+  position: absolute;
+  width: 80%;
+  max-width: 600px;
+  z-index: 1;
+}
+
+.heart-path {
+  fill: none;
+  stroke: #ff5a7a;
+  stroke-width: 6;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawHeart 4s ease forwards;
+}
+
+@keyframes drawHeart { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 
 <body>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
-
 <div class="stars"></div>
 
 <!-- Page 1 -->
@@ -231,15 +219,15 @@ button:hover {
   <button onclick="nextPage()">Reveal</button>
 </div>
 
-<!-- Final Page -->
+<!-- Final Page with Cyprus Gallery -->
 <div class="page" id="final">
   <h1>Surprise! 🌴</h1>
   <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
 
   <div class="gallery">
-    <img src="cyprus1.jpg">
-    <img src="cyprus2.jpg">
     <img src="cyprus3.jpg">
+    <img src="cyprus2.jpg">
+    <img src="cyprus1.jpg">
   </div>
 
   <button onclick="nextPage()">Next</button>
@@ -249,20 +237,27 @@ button:hover {
 <div class="page" id="bonus">
   <h1>Can’t Wait! 🏖️</h1>
   <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
-
-  <!-- Centered birthday message below images -->
   <div id="typewriter"></div>
 </div>
 
-<!-- Final Surprise Page -->
+<!-- Final Surprise Page with Heart -->
 <div class="page" id="finalSurprise">
-  <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
+  <div class="heart-wrapper">
+    <svg viewBox="0 0 200 180" class="heart-svg">
+      <path class="heart-path"
+        d="M100 170
+           L20 90
+           A40 40 0 0 1 100 30
+           A40 40 0 0 1 180 90
+           Z"/>
+    </svg>
+    <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
+  </div>
 </div>
 
 <script>
 let current = 0;
 const pages = document.querySelectorAll('.page');
-
 const message = "Happy 21st Birthday Amy — Love You, Josh x";
 const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
 
@@ -274,56 +269,46 @@ function startExperience() {
 function nextPage() {
   pages[current].classList.remove('active');
   current++;
-  if (current < pages.length) {
+  if(current < pages.length) {
     pages[current].classList.add('active');
 
-    if (pages[current].id === "bonus") {
-      // Show birthday message under images
-      setTimeout(() => {
-        const typewriterEl = document.getElementById("typewriter");
-        typewriterEl.classList.add("show");
-        typeWriter("typewriter", message);
-      }, 1000);
+    // Bonus typewriter
+    if(pages[current].id === "bonus") {
+      setTimeout(()=> typeWriter("typewriter", message), 1000);
+      setTimeout(()=> typeWriter("typewriterBonus", bonusMessage), 5000);
 
-      // Optional: bonus message after
-      setTimeout(() => {
-        typeWriter("typewriterBonus", bonusMessage);
-      }, 5000);
+      // Fade to final surprise
+      setTimeout(()=> fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise")), 9000);
+    }
 
-      // Fade to final surprise page
-      setTimeout(() => {
-        fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise"));
-      }, 9000);
+    // Animate final image
+    if(pages[current].id === "finalSurprise") {
+      const img = document.getElementById("surprisePhoto");
+      setTimeout(()=>{
+        img.style.opacity=1;
+        img.style.transform="scale(1)";
+      },500);
     }
   }
 }
 
-// Fade out one element and fade in another with zoom effect for image
-function fadeOutIn(outEl, inEl) {
-  outEl.style.transition = "opacity 1.5s ease";
-  outEl.style.opacity = 0;
-
-  setTimeout(() => {
+function fadeOutIn(outEl, inEl){
+  outEl.style.transition="opacity 1.5s ease";
+  outEl.style.opacity=0;
+  setTimeout(()=>{
     outEl.classList.remove('active');
     inEl.classList.add('active');
-    inEl.style.opacity = 1;
-
-    const img = inEl.querySelector("img");
-    if (img) {
-      img.style.opacity = 1;
-      img.style.transform = "scale(1)";
-    }
-  }, 1500);
+    inEl.style.opacity=1;
+  },1500);
 }
 
-// Typewriter effect
-function typeWriter(elementId, msg) {
-  let i = 0;
-  function type() {
-    if (i < msg.length) {
+function typeWriter(elementId, msg){
+  let i=0;
+  function type(){
+    if(i<msg.length){
       document.getElementById(elementId).innerHTML += msg.charAt(i);
       i++;
-      setTimeout(type, 80);
+      setTimeout(type,80);
     }
   }
   type();
