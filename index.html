@@ -28,22 +28,22 @@ body { font-family: 'Poppins', sans-serif; background: linear-gradient(120deg, #
 .page {
   min-height: 100vh;
   width: 100%;
-  display: flex;
+  display: flex; /* always flex, don't use display:none */
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px 15px;
   text-align: center;
   opacity: 0;
-  transform: translateY(20px);
   pointer-events: none;
+  transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .page.active {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
+  transform: translateY(0);
 }
 
 /* Text styling */
@@ -134,24 +134,23 @@ function nextPage() {
 
   const currentPage = pages[current];
 
-  // Fade out current page first
+  // Fade out current page
   currentPage.style.opacity = 0;
   currentPage.style.transform = 'translateY(20px)';
   currentPage.style.pointerEvents = 'none';
 
-  // Wait for fade out to complete
   setTimeout(() => {
-    currentPage.classList.remove('active'); // remove active after fade out
+    currentPage.classList.remove('active'); // remove active after fade
     current++;
 
     if (current < pages.length) {
       const nextPageEl = pages[current];
+      nextPageEl.classList.add('active');
 
-      // Reset next page
+      // Reset opacity and transform
       nextPageEl.style.opacity = 0;
       nextPageEl.style.transform = 'translateY(20px)';
       nextPageEl.style.pointerEvents = 'none';
-      nextPageEl.classList.add('active');
 
       // Fade in next page
       setTimeout(() => {
@@ -163,12 +162,12 @@ function nextPage() {
       // Parallax + random drift for stars
       stars.style.transform = `translate(${Math.random()*10-5}px, ${-current*15 + Math.random()*10-5}px)`;
 
-      // Start typewriter on final page
+      // Typewriter on final page
       if (current === pages.length - 1) {
         typeWriter();
       }
     }
-  }, 850); // match the CSS transition duration
+  }, 850); // matches transition
 }
 
 function typeWriter() {
