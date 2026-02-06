@@ -130,10 +130,10 @@ button:hover {
 
 .heart-svg {
   position: absolute;
-  width: 120%;         /* bigger than image */
-  max-width: 600px;
+  width: 200%;          /* twice as large as the photo */
+  max-width: 1200px;    /* optional cap */
   height: auto;
-  z-index: 0;          /* behind image */
+  z-index: 0;           
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -142,7 +142,7 @@ button:hover {
 .heart-path {
   fill: none; 
   stroke: #ff5a7a;
-  stroke-width: 0.8vw; /* scales with viewport */
+  stroke-width: 0.8vw;  /* scales with viewport */
   stroke-dasharray: 1500;
   stroke-dashoffset: 1500;
   animation: drawHeart 4s ease forwards;
@@ -298,8 +298,11 @@ function resizeHeart() {
   const rect = photo.getBoundingClientRect();
   const wrapper = photo.parentElement;
 
-  heart.style.width = rect.width * 1.2 + 'px';
-  heart.style.height = rect.height * 1.2 + 'px';
+  // Heart twice the size of photo
+  heart.style.width = rect.width * 2 + 'px';
+  heart.style.height = rect.height * 2 + 'px';
+
+  // Center heart on photo
   heart.style.top = wrapper.offsetTop + rect.height/2 + 'px';
   heart.style.left = wrapper.offsetLeft + rect.width/2 + 'px';
 }
