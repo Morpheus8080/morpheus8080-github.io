@@ -96,7 +96,7 @@ button:hover {
 }
 
 .gallery img {
-  width: 320px;
+  width: 280px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   opacity: 0;
@@ -104,11 +104,13 @@ button:hover {
   animation: photoFade 2s ease forwards;
 }
 
-.gallery img:nth-child(1) { animation-delay: 1s; }
-.gallery img:nth-child(2) { animation-delay: 2.5s; }
+.gallery img:nth-child(1) { animation-delay: 0.5s; }
+.gallery img:nth-child(2) { animation-delay: 1.5s; }
+.gallery img:nth-child(3) { animation-delay: 2.5s; }
+.gallery img:nth-child(4) { animation-delay: 3.5s; }
 
 /* Typewriter */
-#typewriter {
+#typewriter, #typewriterBonus {
   font-size: 2rem;
   margin-top: 40px;
   min-height: 60px;
@@ -151,6 +153,7 @@ button:hover {
 
 <div class="stars"></div>
 
+<!-- Page 1 -->
 <div class="page active">
   <h1>Happy 21st Birthday, Amy ✨</h1>
   <h2>Your first clue awaits…</h2>
@@ -158,24 +161,28 @@ button:hover {
   <button onclick="startExperience()">Begin</button>
 </div>
 
+<!-- Page 2 -->
 <div class="page">
   <h1>Clue Two 🌍</h1>
   <p class="hint">Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
   <button onclick="nextPage()">Next</button>
 </div>
 
+<!-- Page 3 -->
 <div class="page">
   <h1>Clue Three 🌊</h1>
   <p class="hint">This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
   <button onclick="nextPage()">Keep Going</button>
 </div>
 
+<!-- Page 4 -->
 <div class="page">
   <h1>Final Hint ✈️</h1>
   <p class="hint">Pack light… but don’t forget your passport.</p>
   <button onclick="nextPage()">Reveal</button>
 </div>
 
+<!-- Final Page -->
 <div class="page" id="final">
   <h1>Surprise! 🌴</h1>
   <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
@@ -183,16 +190,27 @@ button:hover {
   <div class="gallery">
     <img src="cyprus1.jpg">
     <img src="cyprus2.jpg">
+    <img src="cyprus3.jpg">
+    <img src="cyprus4.jpg">
   </div>
 
   <div id="typewriter"></div>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- Bonus Page -->
+<div class="page" id="bonus">
+  <h1>Can’t Wait! 🏖️</h1>
+  <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
+  <div id="typewriterBonus"></div>
 </div>
 
 <script>
 let current = 0;
 const pages = document.querySelectorAll('.page');
+
 const message = "Happy 21st Birthday Amy — Love You, Josh x";
-let index = 0;
+const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
 
 function startExperience() {
   document.getElementById("bgMusic").play();
@@ -204,18 +222,29 @@ function nextPage() {
   current++;
   if (current < pages.length) {
     pages[current].classList.add('active');
-    if (current === pages.length - 1) {
-      setTimeout(typeWriter, 3000);
+
+    // Trigger typewriter on final page
+    if (pages[current].id === "final") {
+      setTimeout(() => typeWriter("typewriter", message), 1000);
+    }
+
+    // Trigger typewriter on bonus page
+    if (pages[current].id === "bonus") {
+      setTimeout(() => typeWriter("typewriterBonus", bonusMessage), 1000);
     }
   }
 }
 
-function typeWriter() {
-  if (index < message.length) {
-    document.getElementById("typewriter").innerHTML += message.charAt(index);
-    index++;
-    setTimeout(typeWriter, 80);
+function typeWriter(elementId, msg) {
+  let i = 0;
+  function type() {
+    if (i < msg.length) {
+      document.getElementById(elementId).innerHTML += msg.charAt(i);
+      i++;
+      setTimeout(type, 80);
+    }
   }
+  type();
 }
 </script>
 
