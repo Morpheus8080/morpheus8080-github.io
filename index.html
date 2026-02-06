@@ -2,331 +2,181 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy 21st Amy</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  overflow:hidden;
+}
+.page{
+  min-height:100vh;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px;
+}
+.page.active{display:flex;}
+button{
+  margin-top:30px;
+  background:transparent;
+  border:2px solid white;
+  color:white;
+  padding:12px 30px;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:1rem;
+}
+.gallery{
+  display:flex;
+  gap:30px;
+  margin-top:30px;
+}
+.gallery img{
+  width:180px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+#typewriter{
+  font-size:2rem;
+  margin-top:30px;
+  border-right:3px solid white;
+  padding-right:10px;
+  min-height:60px;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  overflow: hidden; /* other pages fullscreen */
+#finalSurprise{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
 }
 
-.stars {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(#ffffff 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.1;
-  z-index: -1;
+#finalSurprise img{
+  max-width:55%;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+  z-index:2;
 }
 
-.page {
-  min-height: 100vh;
-  width: 100%;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  text-align: center;
-  animation: fadeIn 1s ease;
+.heart{
+  position:absolute;
+  width:70%;
+  max-width:700px;
+  z-index:1;
+}
+.heart path{
+  fill:none;
+  stroke:#ff6b81;
+  stroke-width:5;
+  stroke-dasharray:600;
+  stroke-dashoffset:600;
+  animation:draw 2s forwards,pulse 2s infinite 2s;
+}
+text{
+  fill:#ff6b81;
+  font-size:8px;
+  font-weight:600;
 }
 
-.page.active {
-  display: flex;
+.particle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:#ffd6e5;
+  border-radius:50%;
+  opacity:.6;
+  animation:float 6s infinite linear;
 }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-weight: 300;
-  margin-bottom: 30px;
-}
-
-p {
-  max-width: 700px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
-
-button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background: white;
-  color: #203a43;
-  transform: scale(1.05);
-}
-
-.hint {
-  font-size: 1.2rem;
-  opacity: 0.85;
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Gallery */
-.gallery {
-  display: flex;
-  gap: 30px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.gallery img {
-  width: 180px; /* smaller images */
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  opacity: 0;
-  transform: translateY(30px);
-  animation: photoFade 2s ease forwards;
-}
-
-.gallery img:nth-child(1) { animation-delay: 0.5s; }
-.gallery img:nth-child(2) { animation-delay: 1.5s; }
-.gallery img:nth-child(3) { animation-delay: 2.5s; }
-.gallery img:nth-child(4) { animation-delay: 3.5s; }
-
-/* Typewriter */
-#typewriter, #typewriterBonus {
-  font-size: 2rem;
-  margin-top: 40px;
-  min-height: 60px;
-  border-right: 3px solid white;
-  padding-right: 10px;
-  animation: blink 0.8s infinite;
-  text-align: center; /* center the text */
-}
-
-#typewriter.show {
-  opacity: 1;
-  transition: opacity 1.5s ease;
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes photoFade {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Scrollable final page */
-#final {
-  overflow-y: auto;
-  max-height: 100vh;
-  padding-bottom: 60px;
-  scroll-behavior: smooth;
-}
-
-/* Optional scrollbar styling */
-#final::-webkit-scrollbar {
-  width: 8px;
-}
-
-#final::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 4px;
-}
-
-#final::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Final Surprise Page */
-#finalSurprise {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-
-#finalSurprise img {
-  max-width: 60%;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transform: scale(0.8);
-  transition: transform 1.5s ease, opacity 1.5s ease;
-  opacity: 0;
+@keyframes draw{to{stroke-dashoffset:0;}}
+@keyframes pulse{50%{transform:scale(1.05);}}
+@keyframes float{
+  from{transform:translateY(0) scale(1);}
+  to{transform:translateY(-600px) scale(0);}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-
-<div class="stars"></div>
-
-<!-- Page 1 -->
 <div class="page active">
-  <h1>Happy 21st Birthday, Amy ✨</h1>
-  <h2>Your first clue awaits…</h2>
-  <p class="hint">This journey is about memories, not things. Somewhere beautiful awaits.</p>
-  <button onclick="startExperience()">Begin</button>
+  <h1>Happy 21st Amy ✨</h1>
+  <button onclick="next()">Begin</button>
 </div>
 
-<!-- Page 2 -->
 <div class="page">
-  <h1>Clue Two 🌍</h1>
-  <p class="hint">Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
-  <button onclick="nextPage()">Next</button>
-</div>
-
-<!-- Page 3 -->
-<div class="page">
-  <h1>Clue Three 🌊</h1>
-  <p class="hint">This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
-  <button onclick="nextPage()">Keep Going</button>
-</div>
-
-<!-- Page 4 -->
-<div class="page">
-  <h1>Final Hint ✈️</h1>
-  <p class="hint">Pack light… but don’t forget your passport.</p>
-  <button onclick="nextPage()">Reveal</button>
-</div>
-
-<!-- Final Page -->
-<div class="page" id="final">
-  <h1>Surprise! 🌴</h1>
-  <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
-
+  <h1>Surprise 🌴</h1>
   <div class="gallery">
     <img src="cyprus1.jpg">
     <img src="cyprus2.jpg">
     <img src="cyprus3.jpg">
   </div>
-
-  <button onclick="nextPage()">Next</button>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- Bonus Page -->
-<div class="page" id="bonus">
-  <h1>Can’t Wait! 🏖️</h1>
-  <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
-
-  <!-- Centered birthday message below images -->
+<div class="page">
   <div id="typewriter"></div>
+  <button onclick="next()">Reveal</button>
 </div>
 
-<!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
-  <img src="cyprus3.jpg" alt="Surprise Photo" id="surprisePhoto">
+  <div id="particles"></div>
+
+  <svg viewBox="0 0 200 180" class="heart">
+    <path id="heartPath" d="M100 170 L20 90 A40 40 0 0 1 100 30 A40 40 0 0 1 180 90 Z"/>
+    <text>
+      <textPath href="#heartPath" startOffset="50%" text-anchor="middle">
+        Happy 21st Birthday Amy — Love Josh
+      </textPath>
+    </text>
+  </svg>
+
+  <img src="cyprus3.jpg">
 </div>
 
 <script>
-let current = 0;
-const pages = document.querySelectorAll('.page');
+let pages=document.querySelectorAll(".page");
+let index=0;
+let msg="Happy 21st Birthday Amy — Love Josh";
+let i=0;
 
-const message = "Happy 21st Birthday Amy — Love You, Josh x";
-const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
-
-function startExperience() {
-  document.getElementById("bgMusic").play();
-  nextPage();
+function next(){
+  pages[index].classList.remove("active");
+  index++;
+  if(index<pages.length) pages[index].classList.add("active");
+  if(index===2) type();
+  if(index===3) createParticles();
 }
 
-function nextPage() {
-  pages[current].classList.remove('active');
-  current++;
-  if (current < pages.length) {
-    pages[current].classList.add('active');
-
-    if (pages[current].id === "bonus") {
-      // Show birthday message under images
-      setTimeout(() => {
-        const typewriterEl = document.getElementById("typewriter");
-        typewriterEl.classList.add("show");
-        typeWriter("typewriter", message);
-      }, 1000);
-
-      // Optional: bonus message after
-      setTimeout(() => {
-        typeWriter("typewriterBonus", bonusMessage);
-      }, 5000);
-
-      // Fade to final surprise page
-      setTimeout(() => {
-        fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise"));
-      }, 9000);
-    }
+function type(){
+  if(i<msg.length){
+    document.getElementById("typewriter").innerHTML+=msg[i++];
+    setTimeout(type,80);
   }
 }
 
-// Fade out one element and fade in another with zoom effect for image
-function fadeOutIn(outEl, inEl) {
-  outEl.style.transition = "opacity 1.5s ease";
-  outEl.style.opacity = 0;
-
-  setTimeout(() => {
-    outEl.classList.remove('active');
-    inEl.classList.add('active');
-    inEl.style.opacity = 1;
-
-    const img = inEl.querySelector("img");
-    if (img) {
-      img.style.opacity = 1;
-      img.style.transform = "scale(1)";
-    }
-  }, 1500);
-}
-
-// Typewriter effect
-function typeWriter(elementId, msg) {
-  let i = 0;
-  function type() {
-    if (i < msg.length) {
-      document.getElementById(elementId).innerHTML += msg.charAt(i);
-      i++;
-      setTimeout(type, 80);
-    }
+function createParticles(){
+  const container=document.getElementById("particles");
+  for(let i=0;i<50;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"%";
+    p.style.bottom="-10px";
+    p.style.animationDelay=Math.random()*5+"s";
+    p.style.animationDuration=5+Math.random()*5+"s";
+    container.appendChild(p);
   }
-  type();
 }
 </script>
 
