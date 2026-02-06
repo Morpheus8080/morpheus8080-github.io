@@ -190,24 +190,34 @@ function startExperience() {
 }
 
 function nextPage() {
+  if (current >= pages.length) return;
+
   const currentPage = pages[current];
+  // Fade out current page
   currentPage.style.opacity = 0;
   currentPage.style.transform = 'translateY(20px)';
   currentPage.style.pointerEvents = 'none';
-
-  // Move stars for parallax + drift effect
-  stars.style.transform = `translate(${Math.random()*10-5}px, ${-current*15 + Math.random()*10-5}px)`;
+  currentPage.classList.remove('active');
 
   current++;
   if (current < pages.length) {
     const nextPageEl = pages[current];
+    nextPageEl.style.opacity = 0;
+    nextPageEl.style.transform = 'translateY(20px)';
+    nextPageEl.style.pointerEvents = 'none';
     nextPageEl.classList.add('active');
+
+    // Small delay for transition
     setTimeout(() => {
       nextPageEl.style.opacity = 1;
       nextPageEl.style.transform = 'translateY(0)';
       nextPageEl.style.pointerEvents = 'auto';
     }, 50);
 
+    // Parallax + random drift on stars
+    stars.style.transform = `translate(${Math.random()*10-5}px, ${-current*15 + Math.random()*10-5}px)`;
+
+    // Start typewriter on final page
     if (current === pages.length - 1) {
       typeWriter();
     }
