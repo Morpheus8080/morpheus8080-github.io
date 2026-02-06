@@ -140,13 +140,15 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .heart-svg {
   position: absolute;
   width: 80%;
   max-width: 600px;
-  z-index: 1; /* behind the image */
+  z-index: 1; /* behind image */
 }
 
 .heart-path {
@@ -160,17 +162,19 @@ button:hover {
 }
 
 #surprisePhoto {
-  position: relative; /* on top of heart */
-  z-index: 2;
+  position: relative;
+  z-index: 2; /* above heart */
   max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   transform: scale(0.8);
-  transition: transform 1.5s ease, opacity 1.5s ease;
-  opacity: 0;
+  opacity: 1; /* make visible immediately */
+  transition: transform 1.5s ease;
 }
 
-@keyframes drawHeart { to { stroke-dashoffset: 0; } }
+@keyframes drawHeart {
+  to { stroke-dashoffset: 0; }
+}
 </style>
 </head>
 
@@ -232,7 +236,7 @@ button:hover {
 <!-- Final Surprise Page with Heart -->
 <div class="page" id="finalSurprise">
   <div class="heart-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 200 180" class="heart-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" class="heart-svg">
       <path class="heart-path" d="
         M100 170
         L20 90
