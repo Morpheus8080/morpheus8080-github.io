@@ -67,14 +67,14 @@ button:hover { background:white; color:#203a43; }
   z-index: 3;
   display: flex;
   flex-direction: column;
-  align-items: center; /* horizontal centering */
+  align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
 }
 
 #surprisePhoto { 
-  max-width:70%;          /* slightly bigger image */
+  max-width:70%;
   border-radius:20px; 
   box-shadow:0 15px 40px rgba(0,0,0,0.4); 
   transform:scale(0.9); 
@@ -82,14 +82,12 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:30px; 
 }
 
-/* Luxury countdown digital clock */
+/* Luxury continuous countdown digital clock */
 .luxury-countdown {
-  display: block;
-  margin: 0 auto;        /* horizontally center */
-  max-width: 500px;      
-  text-align: center;
-  position: relative;
-  z-index:4;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
   border-radius: 20px;
@@ -99,21 +97,22 @@ button:hover { background:white; color:#203a43; }
   font-weight: bold;
   color: gold;
   text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
-  letter-spacing: 2px;
   box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 15px 30px rgba(0,0,0,0.5);
+  white-space: nowrap;
 }
 
 .luxury-countdown span {
-  display:inline-block;
-  margin:0 10px;
-  color: gold;
+  display:inline-flex;
+  gap:5px;
   font-weight:bold;
   font-size:2rem;
+  color: gold;
   text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
 }
-.luxury-countdown strong {
+
+.luxury-countdown span strong {
   font-size:2.5rem;
-  display:block;
+  display:inline-block;
 }
 </style>
 </head>
@@ -177,7 +176,6 @@ let current = 0;
 const pages = document.querySelectorAll('.page');
 const message = "Happy 21st Birthday Amy — Love Josh x";
 
-// Page navigation
 function nextPage(){
   pages[current].classList.remove('active');
   current++;
@@ -258,7 +256,7 @@ function launchConfetti(){
   }
 }
 
-// Countdown timer with visible labels
+// Countdown timer continuous
 function startCountdown(){
   const countdownEl=document.getElementById("countdown");
   const endTime=new Date("June 28, 2026 07:00:00").getTime();
