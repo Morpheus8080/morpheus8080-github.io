@@ -132,6 +132,66 @@ button:hover {
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   opacity: 0;
   transition: opacity 1.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Balloons */
+.balloons {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 90px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #ff5a7a);
+  box-shadow:
+    inset -10px -20px 30px rgba(0,0,0,0.2),
+    0 20px 40px rgba(0,0,0,0.4);
+  animation: floatUp linear infinite;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  width: 2px;
+  height: 60px;
+  background: rgba(255,255,255,0.7);
+  transform: translateX(-50%);
+}
+
+/* Balloon colors */
+.balloon.gold {
+  background: radial-gradient(circle at 30% 30%, #fff, #ffd700);
+}
+
+.balloon.rose {
+  background: radial-gradient(circle at 30% 30%, #fff, #ff8fa3);
+}
+
+.balloon.blue {
+  background: radial-gradient(circle at 30% 30%, #fff, #4facfe);
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  100% {
+    transform: translateY(-120vh) translateX(60px) rotate(10deg);
+    opacity: 0;
+  }
 }
 
 /* Heart and image wrapper */
@@ -142,6 +202,7 @@ button:hover {
   align-items: center;
   width: 100%;
   padding: 40px 0; /* extra space for heart */
+  z-index: 2;
 }
 
 .heart-svg {
@@ -232,8 +293,10 @@ button:hover {
   <div id="typewriter"></div>
 </div>
 
-<!-- Final Surprise Page with Heart -->
+<!-- Final Surprise Page with Heart and Balloons -->
 <div class="page" id="finalSurprise">
+  <div class="balloons"></div>
+
   <div class="heart-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="heart-svg" preserveAspectRatio="xMidYMid meet">
       <path class="heart-path" d="
@@ -272,6 +335,7 @@ function nextPage() {
     if(pages[current].id === "finalSurprise") {
       const img = document.getElementById("surprisePhoto");
       setTimeout(()=>{ img.style.transform="scale(1)"; },500);
+      launchBalloons();
     }
   }
 }
@@ -296,6 +360,27 @@ function typeWriter(elementId, msg){
     }
   }
   type();
+}
+
+// Balloon Launcher
+function launchBalloons(){
+  const container = document.querySelector(".balloons");
+  container.innerHTML = "";
+
+  const colors = ["gold","rose","blue",""];
+
+  for(let i=0;i<18;i++){
+    const b = document.createElement("div");
+    b.classList.add("balloon");
+    b.classList.add(colors[Math.floor(Math.random()*colors.length)]);
+
+    b.style.left = Math.random()*100 + "%";
+    b.style.animationDuration = (8 + Math.random()*6) + "s";
+    b.style.animationDelay = (Math.random()*4) + "s";
+    b.style.transform = `scale(${0.8 + Math.random()*0.6})`;
+
+    container.appendChild(b);
+  }
 }
 </script>
 
