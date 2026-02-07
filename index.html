@@ -67,24 +67,29 @@ button:hover { background:white; color:#203a43; }
   z-index: 3;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* horizontal centering */
   justify-content: center;
   text-align: center;
+  width: 100%;
 }
+
 #surprisePhoto { 
-  max-width:70%;          /* slightly bigger than before */
+  max-width:70%;          /* slightly bigger image */
   border-radius:20px; 
   box-shadow:0 15px 40px rgba(0,0,0,0.4); 
-  transform:scale(0.9);   /* slightly larger initial scale */
+  transform:scale(0.9); 
   transition:transform 1.5s ease; 
   margin-bottom:30px; 
 }
 
 /* Luxury countdown digital clock */
 .luxury-countdown {
+  display: block;
+  margin: 0 auto;        /* horizontally center */
+  max-width: 400px;      /* optional width limit */
+  text-align: center;
   position: relative;
   z-index:4;
-  display: inline-block;
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
   border-radius: 20px;
