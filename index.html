@@ -80,13 +80,13 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:30px; 
 }
 
-/* Continuous luxury digital countdown - responsive */
+/* Continuous luxury digital countdown - fully responsive */
 .luxury-countdown {
   display: flex;
+  flex-wrap: wrap;          /* allows line break on very small screens */
   justify-content: center;
   align-items: center;
   gap: 2vw;
-  white-space: nowrap;
   background: rgba(20,20,20,0.95);
   border: 0.3vw solid gold;
   border-radius: 2vw;
@@ -97,6 +97,9 @@ button:hover { background:white; color:#203a43; }
   color: gold;
   text-shadow: 0 0 0.5vw rgba(255,215,0,0.8), 0 0 1vw rgba(255,215,0,0.4);
   box-shadow: 0 0 1vw rgba(255,215,0,0.4), 0 0.5vw 2vw rgba(0,0,0,0.5);
+  max-width: 90%;           /* keeps countdown inside mobile screen */
+  overflow: hidden;
+  text-align: center;
 }
 
 .luxury-countdown span {
@@ -106,7 +109,7 @@ button:hover { background:white; color:#203a43; }
 }
 
 .luxury-countdown span strong {
-  font-size: 5vw;
+  font-size: 1.8em;           /* relative to container font size */
   display: inline-block;
   animation: glow 1.5s infinite alternate;
 }
@@ -117,15 +120,15 @@ button:hover { background:white; color:#203a43; }
   100% { text-shadow: 0 0 0.5vw rgba(255,215,0,0.8), 0 0 1vw rgba(255,215,0,0.4); color: gold; }
 }
 
-/* Extra small screens adjustment */
+/* Mobile adjustments */
 @media (max-width: 480px) {
   .luxury-countdown {
-    font-size: 8vw;
-    padding: 2vw 4vw;
+    font-size: 6vw;
+    padding: 3vw 5vw;
     gap: 3vw;
   }
   .luxury-countdown span strong {
-    font-size: 10vw;
+    font-size: 2em;
   }
 }
 </style>
@@ -223,7 +226,6 @@ function fadeOutIn(outEl, inEl){
   },1500);
 }
 
-// Typewriter
 function typeWriter(elementId, msg){
   let i=0;
   function type(){
@@ -236,7 +238,6 @@ function typeWriter(elementId, msg){
   type();
 }
 
-// Balloons
 function launchBalloons(){
   const container = document.querySelector(".balloons-container");
   container.innerHTML="";
@@ -252,7 +253,6 @@ function launchBalloons(){
   }
 }
 
-// Confetti
 function launchConfetti(){
   const container = document.querySelector(".confetti-container");
   container.innerHTML="";
@@ -270,7 +270,6 @@ function launchConfetti(){
   }
 }
 
-// Countdown timer continuous with glowing numbers
 function startCountdown(){
   const countdownEl=document.getElementById("countdown");
   const endTime=new Date("June 28, 2026 07:00:00").getTime();
