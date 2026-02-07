@@ -138,7 +138,7 @@ button:hover {
 }
 
 /* Balloons */
-.balloons {
+.balloons-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -146,19 +146,14 @@ button:hover {
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: visible;
 }
 
 .balloon {
   position: absolute;
   bottom: 0;
-  width: 90px;
-  height: 120px;
+  width: 80px;
+  height: 100px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #ff5a7a);
-  box-shadow:
-    inset -10px -20px 30px rgba(0,0,0,0.2),
-    0 20px 40px rgba(0,0,0,0.4);
   animation: floatUp linear infinite, shimmer 2s ease-in-out infinite alternate;
 }
 
@@ -173,14 +168,9 @@ button:hover {
   transform: translateX(-50%);
 }
 
-/* Balloon colors */
-.balloon.gold { background: radial-gradient(circle at 30% 30%, #fff, #ffd700); }
-.balloon.rose { background: radial-gradient(circle at 30% 30%, #fff, #ff8fa3); }
-.balloon.blue { background: radial-gradient(circle at 30% 30%, #fff, #4facfe); }
-
 @keyframes floatUp {
-  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-120vh) translateX(60px) rotate(10deg); opacity: 0; }
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
 }
 
 @keyframes shimmer {
@@ -189,13 +179,19 @@ button:hover {
 }
 
 /* Confetti */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .confetti {
   position: absolute;
-  width: 10px;
-  height: 10px;
   opacity: 0.9;
-  pointer-events: none;
-  z-index: 3;
   border-radius: 50%;
   animation: fall linear infinite, sparkle 1.5s ease-in-out infinite alternate;
 }
@@ -219,7 +215,7 @@ button:hover {
   align-items: center;
   width: 100%;
   padding: 40px 0;
-  z-index: 4;
+  z-index: 3;
 }
 
 .heart-svg {
@@ -241,7 +237,7 @@ button:hover {
 
 #surprisePhoto {
   position: relative;
-  z-index: 4;
+  z-index: 3;
   max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -304,7 +300,7 @@ button:hover {
 
 <!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
-  <div class="balloons"></div>
+  <div class="balloons-container"></div>
   <div class="confetti-container"></div>
   <div class="heart-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="heart-svg" preserveAspectRatio="xMidYMid meet">
@@ -376,18 +372,18 @@ function typeWriter(elementId, msg){
 
 // Balloons
 function launchBalloons(){
-  const container = document.querySelector(".balloons");
+  const container = document.querySelector(".balloons-container");
   container.innerHTML = "";
-  const colors = ["gold","rose","blue",""];
-  for(let i=0;i<18;i++){
-    const b = document.createElement("div");
-    b.classList.add("balloon");
-    b.classList.add(colors[Math.floor(Math.random()*colors.length)]);
-    b.style.left = Math.random()*100 + "%";
-    b.style.animationDuration = (8 + Math.random()*6) + "s";
-    b.style.animationDelay = (Math.random()*4) + "s";
-    b.style.transform = `scale(${0.8 + Math.random()*0.6})`;
-    container.appendChild(b);
+  const colors = ["#FFD700", "#FF5A7A", "#4FACFE"];
+  for(let i=0;i<15;i++){
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.background = colors[Math.floor(Math.random()*colors.length)];
+    balloon.style.left = Math.random()*90 + "%";
+    balloon.style.animationDuration = (6+Math.random()*6) + "s";
+    balloon.style.animationDelay = Math.random()*4 + "s";
+    balloon.style.transform = `scale(${0.8 + Math.random()*0.5})`;
+    container.appendChild(balloon);
   }
 }
 
