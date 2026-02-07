@@ -80,32 +80,32 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:20px; 
 }
 
-/* Horizontal luxury digital countdown strip */
+/* SMALLER HORIZONTAL LUXURY DIGITAL COUNTDOWN - 50% size */
 .luxury-countdown {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1vw;
+  gap: 0.5vw;             /* smaller spacing */
   background: rgba(20,20,20,0.9);
-  border: 0.2vw solid gold;
-  border-radius: 1vw;
-  padding: 0.5vw 2vw;
+  border: 0.1vw solid gold;
+  border-radius: 0.5vw;
+  padding: 0.25vw 1vw;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 2.5vw; /* adjust for mobile */
+  font-size: 1.25vw;        /* 50% smaller than previous 2.5vw */
   font-weight: bold;
   color: gold;
-  text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4);
-  box-shadow: 0 0 0.5vw rgba(255,215,0,0.4), 0 0.25vw 1vw rgba(0,0,0,0.5);
-  white-space: nowrap; /* keep everything in one line */
+  text-shadow: 0 0 0.125vw rgba(255,215,0,0.8), 0 0 0.25vw rgba(255,215,0,0.4);
+  box-shadow: 0 0 0.25vw rgba(255,215,0,0.4), 0 0.125vw 0.5vw rgba(0,0,0,0.5);
+  white-space: nowrap; 
   overflow: hidden;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 10px;  
 }
 
 .luxury-countdown span {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.5vw;
+  gap: 0.25vw;
 }
 
 .luxury-countdown span strong {
@@ -115,14 +115,14 @@ button:hover { background:white; color:#203a43; }
 }
 
 @keyframes glow {
-  0% { text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4); color: gold; }
-  50% { text-shadow: 0 0 0.5vw rgba(255,215,0,1), 0 0 0.75vw rgba(255,215,0,0.6); color:#FFD700; }
-  100% { text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4); color: gold; }
+  0% { text-shadow: 0 0 0.125vw rgba(255,215,0,0.8), 0 0 0.25vw rgba(255,215,0,0.4); color: gold; }
+  50% { text-shadow: 0 0 0.25vw rgba(255,215,0,1), 0 0 0.375vw rgba(255,215,0,0.6); color:#FFD700; }
+  100% { text-shadow: 0 0 0.125vw rgba(255,215,0,0.8), 0 0 0.25vw rgba(255,215,0,0.4); color: gold; }
 }
 
 @media (max-width:480px){
-  .luxury-countdown { font-size:4vw; padding: 2vw 3vw; }
-  .luxury-countdown span strong { font-size: 1.3em; }
+  .luxury-countdown { font-size:2vw; padding: 1vw 2vw; }
+  .luxury-countdown span strong { font-size: 1.2em; }
 }
 </style>
 </head>
