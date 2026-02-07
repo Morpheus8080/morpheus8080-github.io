@@ -82,13 +82,13 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:30px; 
 }
 
-/* Continuous luxury digital countdown */
+/* Continuous luxury digital countdown with glowing numbers */
 .luxury-countdown {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;             /* space between each unit */
-  white-space: nowrap;    /* prevent wrapping */
+  gap: 30px;             /* space between units */
+  white-space: nowrap;    /* no wrap */
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
   border-radius: 20px;
@@ -103,12 +103,29 @@ button:hover { background:white; color:#203a43; }
 
 .luxury-countdown span {
   display: inline-flex;
-  gap: 5px;              /* number and label close together */
+  gap: 5px;              
   align-items: baseline;
 }
 
 .luxury-countdown span strong {
   font-size: 2.5rem;
+  display: inline-block;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
+    color: gold;
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(255,215,0,1), 0 0 35px rgba(255,215,0,0.6);
+    color: #FFD700;
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
+    color: gold;
+  }
 }
 </style>
 </head>
@@ -252,7 +269,7 @@ function launchConfetti(){
   }
 }
 
-// Countdown timer continuous
+// Countdown timer continuous with glowing numbers
 function startCountdown(){
   const countdownEl=document.getElementById("countdown");
   const endTime=new Date("June 28, 2026 07:00:00").getTime();
