@@ -9,15 +9,8 @@
 * { box-sizing: border-box; margin:0; padding:0; }
 body { font-family: 'Poppins', sans-serif; background: linear-gradient(120deg,#0f2027,#203a43,#2c5364); color:white; overflow:hidden; }
 
-.page {
-  min-height: 100vh;
-  width: 100%;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align:center;
-  padding:40px;
+.page { 
+  min-height: 100vh; width:100%; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:40px; 
 }
 .page.active { display:flex; }
 
@@ -69,13 +62,17 @@ button:hover { background:white; color:#203a43; }
 @keyframes fall { 0%{transform:translateY(-10px) rotate(0deg); opacity:1;} 100%{transform:translateY(120vh) rotate(360deg); opacity:0;} }
 @keyframes sparkle { 0%{opacity:0.6;}50%{opacity:1;}100%{opacity:0.6;} }
 
-.heart-wrapper { position:relative; z-index:3; }
-#surprisePhoto { max-width:60%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); transform:scale(0.8); transition:transform 1.5s ease; }
+.heart-wrapper { position:relative; z-index:3; text-align:center; }
+#surprisePhoto { max-width:60%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); transform:scale(0.8); transition:transform 1.5s ease; margin-bottom:20px; }
+
+#countdown { font-size:2rem; font-weight:bold; margin-top:20px; }
 
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 </style>
 </head>
 <body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
 <!-- Pages -->
 <div class="page active">
@@ -124,6 +121,7 @@ button:hover { background:white; color:#203a43; }
   <div class="confetti-container"></div>
   <div class="heart-wrapper">
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
+    <div id="countdown"></div>
   </div>
 </div>
 
@@ -131,8 +129,8 @@ button:hover { background:white; color:#203a43; }
 let current = 0;
 const pages = document.querySelectorAll('.page');
 const message = "Happy 21st Birthday Amy — Love Josh x";
-const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
 
+// Page navigation
 function nextPage(){
   pages[current].classList.remove('active');
   current++;
@@ -148,6 +146,7 @@ function nextPage(){
       document.getElementById("surprisePhoto").style.transform="scale(1)";
       launchBalloons();
       launchConfetti();
+      startCountdown();
     }
   }
 }
@@ -161,9 +160,11 @@ function fadeOutIn(outEl, inEl){
     inEl.style.opacity=1;
     launchBalloons();
     launchConfetti();
+    startCountdown();
   },1500);
 }
 
+// Typewriter
 function typeWriter(elementId, msg){
   let i=0;
   function type(){
@@ -176,6 +177,7 @@ function typeWriter(elementId, msg){
   type();
 }
 
+// Balloons
 function launchBalloons(){
   const container = document.querySelector(".balloons-container");
   container.innerHTML="";
@@ -191,6 +193,7 @@ function launchBalloons(){
   }
 }
 
+// Confetti
 function launchConfetti(){
   const container = document.querySelector(".confetti-container");
   container.innerHTML="";
@@ -206,6 +209,33 @@ function launchConfetti(){
     c.style.animationDelay=Math.random()*4+"s";
     container.appendChild(c);
   }
+}
+
+// Countdown timer
+function startCountdown(){
+  const countdownEl=document.getElementById("countdown");
+  const endTime=new Date("June 28, 2026 07:00:00").getTime();
+
+  function updateCountdown(){
+    const now=new Date().getTime();
+    const distance=endTime - now;
+
+    if(distance < 0){
+      countdownEl.innerHTML = "🎉 It's time! 🎉";
+      clearInterval(interval);
+      return;
+    }
+
+    const days=Math.floor(distance/(1000*60*60*24));
+    const hours=Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+    const minutes=Math.floor((distance % (1000*60*60))/(1000*60));
+    const seconds=Math.floor((distance % (1000*60))/1000);
+
+    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  const interval=setInterval(updateCountdown,1000);
 }
 </script>
 </body>
