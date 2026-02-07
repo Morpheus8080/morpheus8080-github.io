@@ -65,7 +65,22 @@ button:hover { background:white; color:#203a43; }
 .heart-wrapper { position:relative; z-index:3; text-align:center; }
 #surprisePhoto { max-width:60%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); transform:scale(0.8); transition:transform 1.5s ease; margin-bottom:20px; }
 
-#countdown { font-size:2rem; font-weight:bold; margin-top:20px; }
+/* Luxury countdown digital clock */
+.luxury-countdown {
+  display: inline-block;
+  background: rgba(20,20,20,0.9);
+  border: 3px solid gold;
+  border-radius: 15px;
+  padding: 15px 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2rem;
+  font-weight: bold;
+  color: gold;
+  text-shadow: 0 0 10px rgba(255,215,0,0.6), 0 0 20px rgba(255,215,0,0.3);
+  letter-spacing: 2px;
+  box-shadow: 0 0 30px rgba(255,215,0,0.3), 0 10px 20px rgba(0,0,0,0.5);
+  margin-top:20px;
+}
 
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 </style>
@@ -121,7 +136,7 @@ button:hover { background:white; color:#203a43; }
   <div class="confetti-container"></div>
   <div class="heart-wrapper">
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
-    <div id="countdown"></div>
+    <div id="countdown" class="luxury-countdown"></div>
   </div>
 </div>
 
