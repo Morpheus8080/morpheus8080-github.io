@@ -77,29 +77,30 @@ button:hover { background:white; color:#203a43; }
   box-shadow:0 15px 40px rgba(0,0,0,0.4); 
   transform:scale(0.9); 
   transition:transform 1.5s ease; 
-  margin-bottom:30px; 
+  margin-bottom:20px; 
 }
 
-/* Continuous luxury digital countdown - fully responsive */
+/* Smaller, centered luxury countdown */
 .luxury-countdown {
   display: flex;
-  flex-wrap: wrap;          /* allows line break on very small screens */
+  flex-wrap: wrap;          
   justify-content: center;
   align-items: center;
-  gap: 2vw;
+  gap: 1vw;
   background: rgba(20,20,20,0.95);
-  border: 0.3vw solid gold;
-  border-radius: 2vw;
-  padding: 1vw 3vw;
+  border: 0.15vw solid gold;
+  border-radius: 1vw;
+  padding: 0.5vw 1.5vw;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 4vw;
+  font-size: 2vw;            /* half the size */
   font-weight: bold;
   color: gold;
-  text-shadow: 0 0 0.5vw rgba(255,215,0,0.8), 0 0 1vw rgba(255,215,0,0.4);
-  box-shadow: 0 0 1vw rgba(255,215,0,0.4), 0 0.5vw 2vw rgba(0,0,0,0.5);
-  max-width: 90%;           /* keeps countdown inside mobile screen */
+  text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4);
+  box-shadow: 0 0 0.5vw rgba(255,215,0,0.4), 0 0.25vw 1vw rgba(0,0,0,0.5);
+  max-width: 90%;
   overflow: hidden;
   text-align: center;
+  margin-top: 10px;          /* space below image */
 }
 
 .luxury-countdown span {
@@ -109,27 +110,20 @@ button:hover { background:white; color:#203a43; }
 }
 
 .luxury-countdown span strong {
-  font-size: 1.8em;           /* relative to container font size */
+  font-size: 1.5em;
   display: inline-block;
   animation: glow 1.5s infinite alternate;
 }
 
 @keyframes glow {
-  0% { text-shadow: 0 0 0.5vw rgba(255,215,0,0.8), 0 0 1vw rgba(255,215,0,0.4); color: gold; }
-  50% { text-shadow: 0 0 1vw rgba(255,215,0,1), 0 0 1.5vw rgba(255,215,0,0.6); color:#FFD700; }
-  100% { text-shadow: 0 0 0.5vw rgba(255,215,0,0.8), 0 0 1vw rgba(255,215,0,0.4); color: gold; }
+  0% { text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4); color: gold; }
+  50% { text-shadow: 0 0 0.5vw rgba(255,215,0,1), 0 0 0.75vw rgba(255,215,0,0.6); color:#FFD700; }
+  100% { text-shadow: 0 0 0.25vw rgba(255,215,0,0.8), 0 0 0.5vw rgba(255,215,0,0.4); color: gold; }
 }
 
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  .luxury-countdown {
-    font-size: 6vw;
-    padding: 3vw 5vw;
-    gap: 3vw;
-  }
-  .luxury-countdown span strong {
-    font-size: 2em;
-  }
+@media (max-width:480px){
+  .luxury-countdown { font-size:4vw; padding: 2vw 3vw; }
+  .luxury-countdown span strong { font-size: 1.3em; }
 }
 </style>
 </head>
@@ -137,7 +131,6 @@ button:hover { background:white; color:#203a43; }
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
 
-<!-- Pages -->
 <div class="page active">
   <h1>Happy 21st Birthday, Amy ✨</h1>
   <p>Your first clue awaits…</p>
@@ -189,22 +182,22 @@ button:hover { background:white; color:#203a43; }
 </div>
 
 <script>
-let current = 0;
-const pages = document.querySelectorAll('.page');
-const message = "Happy 21st Birthday Amy — Love Josh x";
+let current=0;
+const pages=document.querySelectorAll('.page');
+const message="Happy 21st Birthday Amy — Love Josh x";
 
 function nextPage(){
   pages[current].classList.remove('active');
   current++;
-  if(current < pages.length){
+  if(current<pages.length){
     pages[current].classList.add('active');
 
-    if(pages[current].id === "bonus"){
+    if(pages[current].id==="bonus"){
       setTimeout(()=> typeWriter("typewriter", message), 1000);
       setTimeout(()=> fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise")), 5000);
     }
 
-    if(pages[current].id === "finalSurprise"){
+    if(pages[current].id==="finalSurprise"){
       document.getElementById("surprisePhoto").style.transform="scale(1)";
       launchBalloons();
       launchConfetti();
@@ -213,7 +206,7 @@ function nextPage(){
   }
 }
 
-function fadeOutIn(outEl, inEl){
+function fadeOutIn(outEl,inEl){
   outEl.style.transition="opacity 1.5s ease";
   outEl.style.opacity=0;
   setTimeout(()=>{
@@ -226,11 +219,11 @@ function fadeOutIn(outEl, inEl){
   },1500);
 }
 
-function typeWriter(elementId, msg){
+function typeWriter(elementId,msg){
   let i=0;
   function type(){
     if(i<msg.length){
-      document.getElementById(elementId).innerHTML += msg.charAt(i);
+      document.getElementById(elementId).innerHTML+=msg.charAt(i);
       i++;
       setTimeout(type,80);
     }
@@ -239,29 +232,29 @@ function typeWriter(elementId, msg){
 }
 
 function launchBalloons(){
-  const container = document.querySelector(".balloons-container");
+  const container=document.querySelector(".balloons-container");
   container.innerHTML="";
   const colors=["#FFD700","#FF5A7A","#4FACFE","#FF8FA3"];
   for(let i=0;i<20;i++){
     const b=document.createElement("div");
     b.classList.add("balloon");
     b.style.background=colors[Math.floor(Math.random()*colors.length)];
-    b.style.left=Math.random()*90 + "%";
-    b.style.animationDuration=(5+Math.random()*5) + "s";
-    b.style.animationDelay=Math.random()*3 + "s";
+    b.style.left=Math.random()*90+"%";
+    b.style.animationDuration=(5+Math.random()*5)+"s";
+    b.style.animationDelay=Math.random()*3+"s";
     container.appendChild(b);
   }
 }
 
 function launchConfetti(){
-  const container = document.querySelector(".confetti-container");
+  const container=document.querySelector(".confetti-container");
   container.innerHTML="";
   const colors=["#FFD700","#FF5A7A","#4FACFE","#FF8FA3","#ffffff"];
   for(let i=0;i<50;i++){
     const c=document.createElement("div");
     c.classList.add("confetti");
     c.style.background=colors[Math.floor(Math.random()*colors.length)];
-    c.style.left=Math.random()*100 + "%";
+    c.style.left=Math.random()*100+"%";
     c.style.width=6+Math.random()*6+"px";
     c.style.height=6+Math.random()*6+"px";
     c.style.animationDuration=4+Math.random()*4+"s";
@@ -276,20 +269,20 @@ function startCountdown(){
 
   function updateCountdown(){
     const now=new Date().getTime();
-    const distance=endTime - now;
+    const distance=endTime-now;
 
-    if(distance < 0){
-      countdownEl.innerHTML = "🎉 It's time! 🎉";
+    if(distance<0){
+      countdownEl.innerHTML="🎉 It's time! 🎉";
       clearInterval(interval);
       return;
     }
 
     const days=Math.floor(distance/(1000*60*60*24));
-    const hours=Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-    const minutes=Math.floor((distance % (1000*60*60))/(1000*60));
-    const seconds=Math.floor((distance % (1000*60))/1000);
+    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    const seconds=Math.floor((distance%(1000*60))/1000);
 
-    countdownEl.innerHTML = `
+    countdownEl.innerHTML=`
       <span><strong>${days}</strong> Days</span>
       <span><strong>${hours}</strong> Hours</span>
       <span><strong>${minutes}</strong> Minutes</span>
