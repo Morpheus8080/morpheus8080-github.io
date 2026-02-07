@@ -86,7 +86,7 @@ button:hover { background:white; color:#203a43; }
 .luxury-countdown {
   display: block;
   margin: 0 auto;        /* horizontally center */
-  max-width: 400px;      /* optional width limit */
+  max-width: 500px;      
   text-align: center;
   position: relative;
   z-index:4;
@@ -101,6 +101,14 @@ button:hover { background:white; color:#203a43; }
   text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
   letter-spacing: 2px;
   box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.luxury-countdown span {
+  font-weight: bold;
+  font-size: 2.2rem;
+  margin: 0 5px;
+  color: gold;
+  text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
 }
 
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
@@ -247,7 +255,7 @@ function launchConfetti(){
   }
 }
 
-// Countdown timer
+// Countdown timer with labels
 function startCountdown(){
   const countdownEl=document.getElementById("countdown");
   const endTime=new Date("June 28, 2026 07:00:00").getTime();
@@ -267,7 +275,12 @@ function startCountdown(){
     const minutes=Math.floor((distance % (1000*60*60))/(1000*60));
     const seconds=Math.floor((distance % (1000*60))/1000);
 
-    countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    countdownEl.innerHTML = `
+      <span>${days}</span> Days 
+      <span>${hours}</span> Hours 
+      <span>${minutes}</span> Minutes 
+      <span>${seconds}</span> Seconds
+    `;
   }
 
   updateCountdown();
