@@ -4,28 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy 21st Amy</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  overflow: hidden;
-}
-
-.stars {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(#ffffff 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.1;
-  z-index: -1;
-}
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family: 'Poppins', sans-serif; background: linear-gradient(120deg,#0f2027,#203a43,#2c5364); color:white; overflow:hidden; }
 
 .page {
   min-height: 100vh;
@@ -34,250 +16,89 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
-  text-align: center;
-  animation: fadeIn 1s ease;
+  text-align:center;
+  padding:40px;
 }
+.page.active { display:flex; }
 
-.page.active { display: flex; }
-
-h1 { font-size: 3rem; margin-bottom: 20px; }
-h2 { font-weight: 300; margin-bottom: 30px; }
-p { max-width: 700px; line-height: 1.6; margin-bottom: 30px; }
+h1 { font-size:3rem; margin-bottom:20px; }
+p { margin-bottom:30px; max-width:700px; }
 
 button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background:transparent; border:2px solid white; color:white;
+  padding:12px 30px; border-radius:30px; cursor:pointer; transition:0.3s;
 }
+button:hover { background:white; color:#203a43; }
 
-button:hover {
-  background: white;
-  color: #203a43;
-  transform: scale(1.05);
-}
+.gallery { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; margin-bottom:40px; }
+.gallery img { width:180px; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); opacity:0; transform:translateY(30px); animation:photoFade 2s ease forwards; }
+.gallery img:nth-child(1) { animation-delay:0.5s; }
+.gallery img:nth-child(2) { animation-delay:1.5s; }
+.gallery img:nth-child(3) { animation-delay:2.5s; }
 
-.hint {
-  font-size: 1.2rem;
-  opacity: 0.85;
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Gallery */
-.gallery {
-  display: flex;
-  gap: 30px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.gallery img {
-  width: 180px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  opacity: 0;
-  transform: translateY(30px);
-  animation: photoFade 2s ease forwards;
-}
-
-.gallery img:nth-child(1) { animation-delay: 0.5s; }
-.gallery img:nth-child(2) { animation-delay: 1.5s; }
-.gallery img:nth-child(3) { animation-delay: 2.5s; }
-.gallery img:nth-child(4) { animation-delay: 3.5s; }
-
-/* Typewriter */
-#typewriter, #typewriterBonus {
-  font-size: 2rem;
-  margin-top: 40px;
-  min-height: 60px;
-  border-right: 3px solid white;
-  padding-right: 10px;
-  animation: blink 0.8s infinite;
-  text-align: center;
-}
-
-#typewriter.show { opacity: 1; transition: opacity 1.5s ease; }
+#typewriter { font-size:2rem; margin-top:40px; min-height:60px; border-right:3px solid white; padding-right:10px; animation:blink 0.8s infinite; text-align:center; }
 
 @keyframes blink { 50% { border-color: transparent; } }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-@keyframes photoFade { from { opacity: 0; transform: translateY(30px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes photoFade { from { opacity:0; transform:translateY(30px) scale(0.92); } to { opacity:1; transform:translateY(0) scale(1); } }
 
-/* Scrollable final page */
-#final {
-  overflow-y: auto;
-  max-height: 100vh;
-  padding-bottom: 60px;
-  scroll-behavior: smooth;
-}
+#finalSurprise { position:relative; display:flex; justify-content:center; align-items:center; flex-direction:column; min-height:100vh; width:100%; background: linear-gradient(120deg,#0f2027,#203a43,#2c5364); overflow:hidden; }
 
-#final::-webkit-scrollbar { width: 8px; }
-#final::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-#final::-webkit-scrollbar-track { background: transparent; }
-
-/* Final Surprise Page */
-#finalSurprise {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-  opacity: 0;
-  transition: opacity 1.5s ease;
-  position: relative;
-  overflow: visible;
-}
-
-/* Balloons */
-.balloons-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
+.balloons-container { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
 .balloon {
-  position: absolute;
-  bottom: 0;
-  width: 80px;
-  height: 100px;
-  border-radius: 50%;
-  animation: floatUp linear infinite, shimmer 2s ease-in-out infinite alternate;
+  position:absolute;
+  bottom:0;
+  width:60px;
+  height:80px;
+  border-radius:50%;
+  animation:floatUp linear infinite;
 }
-
 .balloon::after {
-  content: "";
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  width: 2px;
-  height: 60px;
-  background: rgba(255,255,255,0.7);
-  transform: translateX(-50%);
+  content:'';
+  position:absolute;
+  bottom:-30px;
+  left:50%;
+  width:2px;
+  height:40px;
+  background:rgba(255,255,255,0.7);
+  transform:translateX(-50%);
 }
+@keyframes floatUp { 0%{transform:translateY(0); opacity:1;} 100%{transform:translateY(-120vh); opacity:0;} }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
-}
+.confetti-container { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:2; }
+.confetti { position:absolute; opacity:0.9; border-radius:50%; animation:fall linear infinite, sparkle 1.5s ease-in-out infinite alternate; }
+@keyframes fall { 0%{transform:translateY(-10px) rotate(0deg); opacity:1;} 100%{transform:translateY(120vh) rotate(360deg); opacity:0;} }
+@keyframes sparkle { 0%{opacity:0.6;}50%{opacity:1;}100%{opacity:0.6;} }
 
-@keyframes shimmer {
-  0% { box-shadow: inset -10px -20px 30px rgba(0,0,0,0.2), 0 20px 40px rgba(255,255,255,0.2); }
-  100% { box-shadow: inset -10px -20px 30px rgba(0,0,0,0.2), 0 20px 40px rgba(255,255,255,0.7); }
-}
+.heart-wrapper { position:relative; z-index:3; }
+#surprisePhoto { max-width:60%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); transform:scale(0.8); transition:transform 1.5s ease; }
 
-/* Confetti */
-.confetti-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.confetti {
-  position: absolute;
-  opacity: 0.9;
-  border-radius: 50%;
-  animation: fall linear infinite, sparkle 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
-}
-
-@keyframes sparkle {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
-}
-
-/* Heart and image wrapper */
-.heart-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 40px 0;
-  z-index: 3;
-}
-
-.heart-svg {
-  position: absolute;
-  width: 80%;
-  max-width: 500px;
-  height: auto;
-  z-index: 1;
-}
-
-.heart-path {
-  fill: none;
-  stroke: #ff5a7a;
-  stroke-width: 6;
-  stroke-dasharray: 1500;
-  stroke-dashoffset: 1500;
-  animation: drawHeart 4s ease forwards;
-}
-
-#surprisePhoto {
-  position: relative;
-  z-index: 3;
-  max-width: 60%;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transform: scale(0.8);
-  opacity: 1;
-  transition: transform 1.5s ease;
-}
-
-@keyframes drawHeart { to { stroke-dashoffset: 0; } }
-
+@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 </style>
 </head>
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-<div class="stars"></div>
-
 <!-- Pages -->
 <div class="page active">
   <h1>Happy 21st Birthday, Amy ✨</h1>
-  <h2>Your first clue awaits…</h2>
-  <p class="hint">This journey is about memories, not things. Somewhere beautiful awaits.</p>
-  <button onclick="startExperience()">Begin</button>
+  <p>Your first clue awaits…</p>
+  <button onclick="nextPage()">Begin</button>
 </div>
 
 <div class="page">
   <h1>Clue Two 🌍</h1>
-  <p class="hint">Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
+  <p>Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
   <button onclick="nextPage()">Next</button>
 </div>
 
 <div class="page">
   <h1>Clue Three 🌊</h1>
-  <p class="hint">This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
+  <p>This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
   <button onclick="nextPage()">Keep Going</button>
 </div>
 
 <div class="page">
   <h1>Final Hint ✈️</h1>
-  <p class="hint">Pack light… but don’t forget your passport.</p>
+  <p>Pack light… but don’t forget your passport.</p>
   <button onclick="nextPage()">Reveal</button>
 </div>
 
@@ -294,22 +115,14 @@ button:hover {
 
 <div class="page" id="bonus">
   <h1>Can’t Wait! 🏖️</h1>
-  <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
+  <p>Every sunset, every laugh, every moment — this one’s for us.</p>
   <div id="typewriter"></div>
 </div>
 
-<!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
   <div class="balloons-container"></div>
   <div class="confetti-container"></div>
   <div class="heart-wrapper">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="heart-svg" preserveAspectRatio="xMidYMid meet">
-      <path class="heart-path" d="
-        M200,370
-        C50,250 50,150 200,100
-        C350,150 350,250 200,370
-      " />
-    </svg>
     <img src="couple1.png" alt="Surprise Photo" id="surprisePhoto">
   </div>
 </div>
@@ -320,30 +133,21 @@ const pages = document.querySelectorAll('.page');
 const message = "Happy 21st Birthday Amy — Love Josh x";
 const bonusMessage = "Cyprus awaits us… let’s make memories that last forever 🌅💛";
 
-function startExperience() {
-  document.getElementById("bgMusic").play();
-  nextPage();
-}
-
-function nextPage() {
+function nextPage(){
   pages[current].classList.remove('active');
   current++;
-  if(current < pages.length) {
+  if(current < pages.length){
     pages[current].classList.add('active');
 
-    if(pages[current].id === "bonus") {
+    if(pages[current].id === "bonus"){
       setTimeout(()=> typeWriter("typewriter", message), 1000);
-      setTimeout(()=> typeWriter("typewriterBonus", bonusMessage), 5000);
-      setTimeout(()=> fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise")), 9000);
+      setTimeout(()=> fadeOutIn(document.getElementById("bonus"), document.getElementById("finalSurprise")), 5000);
     }
 
-    if(pages[current].id === "finalSurprise") {
-      const img = document.getElementById("surprisePhoto");
-      setTimeout(()=>{ 
-        img.style.transform="scale(1)"; 
-        launchBalloons(); 
-        launchConfetti();
-      },500);
+    if(pages[current].id === "finalSurprise"){
+      document.getElementById("surprisePhoto").style.transform="scale(1)";
+      launchBalloons();
+      launchConfetti();
     }
   }
 }
@@ -355,6 +159,8 @@ function fadeOutIn(outEl, inEl){
     outEl.classList.remove('active');
     inEl.classList.add('active');
     inEl.style.opacity=1;
+    launchBalloons();
+    launchConfetti();
   },1500);
 }
 
@@ -370,37 +176,34 @@ function typeWriter(elementId, msg){
   type();
 }
 
-// Balloons
 function launchBalloons(){
   const container = document.querySelector(".balloons-container");
-  container.innerHTML = "";
-  const colors = ["#FFD700", "#FF5A7A", "#4FACFE"];
-  for(let i=0;i<15;i++){
-    const balloon = document.createElement("div");
-    balloon.classList.add("balloon");
-    balloon.style.background = colors[Math.floor(Math.random()*colors.length)];
-    balloon.style.left = Math.random()*90 + "%";
-    balloon.style.animationDuration = (6+Math.random()*6) + "s";
-    balloon.style.animationDelay = Math.random()*4 + "s";
-    balloon.style.transform = `scale(${0.8 + Math.random()*0.5})`;
-    container.appendChild(balloon);
+  container.innerHTML="";
+  const colors=["#FFD700","#FF5A7A","#4FACFE","#FF8FA3"];
+  for(let i=0;i<20;i++){
+    const b=document.createElement("div");
+    b.classList.add("balloon");
+    b.style.background=colors[Math.floor(Math.random()*colors.length)];
+    b.style.left=Math.random()*90 + "%";
+    b.style.animationDuration=(5+Math.random()*5) + "s";
+    b.style.animationDelay=Math.random()*3 + "s";
+    container.appendChild(b);
   }
 }
 
-// Confetti
 function launchConfetti(){
   const container = document.querySelector(".confetti-container");
-  container.innerHTML = "";
-  const colors = ["#FFD700","#FF5A7A","#4FACFE","#FF8FA3","#ffffff"];
+  container.innerHTML="";
+  const colors=["#FFD700","#FF5A7A","#4FACFE","#FF8FA3","#ffffff"];
   for(let i=0;i<50;i++){
-    const c = document.createElement("div");
+    const c=document.createElement("div");
     c.classList.add("confetti");
-    c.style.background = colors[Math.floor(Math.random()*colors.length)];
-    c.style.left = Math.random()*100 + "%";
-    c.style.width = 6 + Math.random()*6 + "px";
-    c.style.height = 6 + Math.random()*6 + "px";
-    c.style.animationDuration = 4 + Math.random()*4 + "s";
-    c.style.animationDelay = Math.random()*4 + "s";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.left=Math.random()*100 + "%";
+    c.style.width=6+Math.random()*6+"px";
+    c.style.height=6+Math.random()*6+"px";
+    c.style.animationDuration=4+Math.random()*4+"s";
+    c.style.animationDelay=Math.random()*4+"s";
     container.appendChild(c);
   }
 }
