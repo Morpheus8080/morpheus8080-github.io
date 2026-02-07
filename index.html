@@ -133,8 +133,8 @@ button:hover {
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   opacity: 0;
   transition: opacity 1.5s ease;
-  position: relative;  /* key fix */
-  overflow: visible;   /* allow balloons to float outside */
+  position: relative;
+  overflow: visible;
 }
 
 /* Balloons */
@@ -145,13 +145,13 @@ button:hover {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;  /* behind heart/photo */
+  z-index: 1;
   overflow: visible;
 }
 
 .balloon {
   position: absolute;
-  bottom: 0; /* start from bottom */
+  bottom: 0;
   width: 90px;
   height: 120px;
   border-radius: 50%;
@@ -159,7 +159,7 @@ button:hover {
   box-shadow:
     inset -10px -20px 30px rgba(0,0,0,0.2),
     0 20px 40px rgba(0,0,0,0.4);
-  animation: floatUp linear infinite;
+  animation: floatUp linear infinite, shimmer 2s ease-in-out infinite alternate;
 }
 
 .balloon::after {
@@ -174,21 +174,41 @@ button:hover {
 }
 
 /* Balloon colors */
-.balloon.gold {
-  background: radial-gradient(circle at 30% 30%, #fff, #ffd700);
-}
-
-.balloon.rose {
-  background: radial-gradient(circle at 30% 30%, #fff, #ff8fa3);
-}
-
-.balloon.blue {
-  background: radial-gradient(circle at 30% 30%, #fff, #4facfe);
-}
+.balloon.gold { background: radial-gradient(circle at 30% 30%, #fff, #ffd700); }
+.balloon.rose { background: radial-gradient(circle at 30% 30%, #fff, #ff8fa3); }
+.balloon.blue { background: radial-gradient(circle at 30% 30%, #fff, #4facfe); }
 
 @keyframes floatUp {
   0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(-120vh) translateX(60px) rotate(10deg); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { box-shadow: inset -10px -20px 30px rgba(0,0,0,0.2), 0 20px 40px rgba(255,255,255,0.2); }
+  100% { box-shadow: inset -10px -20px 30px rgba(0,0,0,0.2), 0 20px 40px rgba(255,255,255,0.7); }
+}
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 50%;
+  animation: fall linear infinite, sparkle 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes sparkle {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
 /* Heart and image wrapper */
@@ -199,7 +219,7 @@ button:hover {
   align-items: center;
   width: 100%;
   padding: 40px 0;
-  z-index: 2; /* above balloons */
+  z-index: 4;
 }
 
 .heart-svg {
@@ -221,7 +241,7 @@ button:hover {
 
 #surprisePhoto {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   max-width: 60%;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -234,13 +254,12 @@ button:hover {
 
 </style>
 </head>
-
 <body>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
 <div class="stars"></div>
 
-<!-- Page 1 -->
+<!-- Pages -->
 <div class="page active">
   <h1>Happy 21st Birthday, Amy ✨</h1>
   <h2>Your first clue awaits…</h2>
@@ -248,42 +267,35 @@ button:hover {
   <button onclick="startExperience()">Begin</button>
 </div>
 
-<!-- Page 2 -->
 <div class="page">
   <h1>Clue Two 🌍</h1>
   <p class="hint">Think warm evenings, golden sunsets, and a place where the sea meets history.</p>
   <button onclick="nextPage()">Next</button>
 </div>
 
-<!-- Page 3 -->
 <div class="page">
   <h1>Clue Three 🌊</h1>
   <p class="hint">This gift can’t be wrapped. It’s measured in days, smiles, and shared adventures.</p>
   <button onclick="nextPage()">Keep Going</button>
 </div>
 
-<!-- Page 4 -->
 <div class="page">
   <h1>Final Hint ✈️</h1>
   <p class="hint">Pack light… but don’t forget your passport.</p>
   <button onclick="nextPage()">Reveal</button>
 </div>
 
-<!-- Final Page with Cyprus Gallery -->
 <div class="page" id="final">
   <h1>Surprise! 🌴</h1>
   <p>You’re going on a <strong>7-night holiday to Cyprus</strong> — just you and me.</p>
-
   <div class="gallery">
     <img src="cyprus3.jpg">
     <img src="cyprus2.jpg">
     <img src="cyprus1.jpg">
   </div>
-
   <button onclick="nextPage()">Next</button>
 </div>
 
-<!-- Bonus Page -->
 <div class="page" id="bonus">
   <h1>Can’t Wait! 🏖️</h1>
   <p class="hint">Every sunset, every laugh, every moment — this one’s for us.</p>
@@ -293,7 +305,7 @@ button:hover {
 <!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
   <div class="balloons"></div>
-
+  <div class="confetti-container"></div>
   <div class="heart-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="heart-svg" preserveAspectRatio="xMidYMid meet">
       <path class="heart-path" d="
@@ -334,6 +346,7 @@ function nextPage() {
       setTimeout(()=>{ 
         img.style.transform="scale(1)"; 
         launchBalloons(); 
+        launchConfetti();
       },500);
     }
   }
@@ -361,27 +374,40 @@ function typeWriter(elementId, msg){
   type();
 }
 
-// Balloon Launcher
+// Balloons
 function launchBalloons(){
   const container = document.querySelector(".balloons");
   container.innerHTML = "";
-
   const colors = ["gold","rose","blue",""];
-
   for(let i=0;i<18;i++){
     const b = document.createElement("div");
     b.classList.add("balloon");
     b.classList.add(colors[Math.floor(Math.random()*colors.length)]);
-
     b.style.left = Math.random()*100 + "%";
     b.style.animationDuration = (8 + Math.random()*6) + "s";
     b.style.animationDelay = (Math.random()*4) + "s";
     b.style.transform = `scale(${0.8 + Math.random()*0.6})`;
-
     container.appendChild(b);
   }
 }
-</script>
 
+// Confetti
+function launchConfetti(){
+  const container = document.querySelector(".confetti-container");
+  container.innerHTML = "";
+  const colors = ["#FFD700","#FF5A7A","#4FACFE","#FF8FA3","#ffffff"];
+  for(let i=0;i<50;i++){
+    const c = document.createElement("div");
+    c.classList.add("confetti");
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.left = Math.random()*100 + "%";
+    c.style.width = 6 + Math.random()*6 + "px";
+    c.style.height = 6 + Math.random()*6 + "px";
+    c.style.animationDuration = 4 + Math.random()*4 + "s";
+    c.style.animationDelay = Math.random()*4 + "s";
+    container.appendChild(c);
+  }
+}
+</script>
 </body>
 </html>
