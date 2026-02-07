@@ -127,13 +127,14 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   width: 100%;
   background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
   opacity: 0;
   transition: opacity 1.5s ease;
-  position: relative;
-  overflow: hidden;
+  position: relative;  /* key fix */
+  overflow: visible;   /* allow balloons to float outside */
 }
 
 /* Balloons */
@@ -143,14 +144,14 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
   pointer-events: none;
-  z-index: 1; /* behind heart/photo */
+  z-index: 1;  /* behind heart/photo */
+  overflow: visible;
 }
 
 .balloon {
   position: absolute;
-  bottom: -150px;
+  bottom: 0; /* start from bottom */
   width: 90px;
   height: 120px;
   border-radius: 50%;
@@ -186,15 +187,8 @@ button:hover {
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  100% {
-    transform: translateY(-150vh) translateX(60px) rotate(10deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(60px) rotate(10deg); opacity: 0; }
 }
 
 /* Heart and image wrapper */
@@ -296,7 +290,7 @@ button:hover {
   <div id="typewriter"></div>
 </div>
 
-<!-- Final Surprise Page with Heart and Balloons -->
+<!-- Final Surprise Page -->
 <div class="page" id="finalSurprise">
   <div class="balloons"></div>
 
