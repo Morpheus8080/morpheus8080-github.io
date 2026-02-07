@@ -65,25 +65,25 @@ button:hover { background:white; color:#203a43; }
 .heart-wrapper {
   position: relative;
   z-index: 3;
-  display: flex;          /* center contents horizontally */
-  flex-direction: column; /* stack vertically */
-  align-items: center;    /* horizontal center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   text-align: center;
 }
 #surprisePhoto { 
-  max-width:60%; 
+  max-width:70%;          /* slightly bigger than before */
   border-radius:20px; 
   box-shadow:0 15px 40px rgba(0,0,0,0.4); 
-  transform:scale(0.8); 
+  transform:scale(0.9);   /* slightly larger initial scale */
   transition:transform 1.5s ease; 
-  margin-bottom:30px; /* spacing between photo and timer */
+  margin-bottom:30px; 
 }
 
 /* Luxury countdown digital clock */
 .luxury-countdown {
   position: relative;
-  z-index:4; /* ensure it stays above balloons/confetti */
+  z-index:4;
   display: inline-block;
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
