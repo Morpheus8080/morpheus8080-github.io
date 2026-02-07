@@ -74,7 +74,7 @@ button:hover { background:white; color:#203a43; }
 }
 
 #surprisePhoto { 
-  max-width:70%;
+  max-width:75%;
   border-radius:20px; 
   box-shadow:0 15px 40px rgba(0,0,0,0.4); 
   transform:scale(0.9); 
@@ -82,12 +82,13 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:30px; 
 }
 
-/* Luxury continuous countdown digital clock */
+/* Continuous luxury digital countdown */
 .luxury-countdown {
   display: flex;
   justify-content: center;
-  gap: 20px;
   align-items: center;
+  gap: 30px;             /* space between each unit */
+  white-space: nowrap;    /* prevent wrapping */
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
   border-radius: 20px;
@@ -98,21 +99,16 @@ button:hover { background:white; color:#203a43; }
   color: gold;
   text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
   box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 15px 30px rgba(0,0,0,0.5);
-  white-space: nowrap;
 }
 
 .luxury-countdown span {
-  display:inline-flex;
-  gap:5px;
-  font-weight:bold;
-  font-size:2rem;
-  color: gold;
-  text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
+  display: inline-flex;
+  gap: 5px;              /* number and label close together */
+  align-items: baseline;
 }
 
 .luxury-countdown span strong {
-  font-size:2.5rem;
-  display:inline-block;
+  font-size: 2.5rem;
 }
 </style>
 </head>
