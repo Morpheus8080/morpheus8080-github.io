@@ -67,19 +67,21 @@ button:hover { background:white; color:#203a43; }
 
 /* Luxury countdown digital clock */
 .luxury-countdown {
+  position: relative;
+  z-index:4; /* ensures it's above balloons/confetti */
   display: inline-block;
-  background: rgba(20,20,20,0.9);
+  background: rgba(20,20,20,0.95);
   border: 3px solid gold;
-  border-radius: 15px;
-  padding: 15px 30px;
+  border-radius: 20px;
+  padding: 20px 40px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 2rem;
   font-weight: bold;
   color: gold;
-  text-shadow: 0 0 10px rgba(255,215,0,0.6), 0 0 20px rgba(255,215,0,0.3);
+  text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
   letter-spacing: 2px;
-  box-shadow: 0 0 30px rgba(255,215,0,0.3), 0 10px 20px rgba(0,0,0,0.5);
-  margin-top:20px;
+  box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 15px 30px rgba(0,0,0,0.5);
+  margin-top:40px;
 }
 
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
