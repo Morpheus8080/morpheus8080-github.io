@@ -62,13 +62,28 @@ button:hover { background:white; color:#203a43; }
 @keyframes fall { 0%{transform:translateY(-10px) rotate(0deg); opacity:1;} 100%{transform:translateY(120vh) rotate(360deg); opacity:0;} }
 @keyframes sparkle { 0%{opacity:0.6;}50%{opacity:1;}100%{opacity:0.6;} }
 
-.heart-wrapper { position:relative; z-index:3; text-align:center; }
-#surprisePhoto { max-width:60%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); transform:scale(0.8); transition:transform 1.5s ease; margin-bottom:20px; }
+.heart-wrapper {
+  position: relative;
+  z-index: 3;
+  display: flex;          /* center contents horizontally */
+  flex-direction: column; /* stack vertically */
+  align-items: center;    /* horizontal center */
+  justify-content: center;
+  text-align: center;
+}
+#surprisePhoto { 
+  max-width:60%; 
+  border-radius:20px; 
+  box-shadow:0 15px 40px rgba(0,0,0,0.4); 
+  transform:scale(0.8); 
+  transition:transform 1.5s ease; 
+  margin-bottom:30px; /* spacing between photo and timer */
+}
 
 /* Luxury countdown digital clock */
 .luxury-countdown {
   position: relative;
-  z-index:4; /* ensures it's above balloons/confetti */
+  z-index:4; /* ensure it stays above balloons/confetti */
   display: inline-block;
   background: rgba(20,20,20,0.95);
   border: 3px solid gold;
@@ -81,7 +96,6 @@ button:hover { background:white; color:#203a43; }
   text-shadow: 0 0 15px rgba(255,215,0,0.8), 0 0 25px rgba(255,215,0,0.4);
   letter-spacing: 2px;
   box-shadow: 0 0 40px rgba(255,215,0,0.4), 0 15px 30px rgba(0,0,0,0.5);
-  margin-top:40px;
 }
 
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
