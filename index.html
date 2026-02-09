@@ -80,18 +80,18 @@ button:hover { background:white; color:#203a43; }
   margin-bottom:20px; 
 }
 
-/* HORIZONTAL LUXURY DIGITAL COUNTDOWN - 25% bigger than previous small version */
+/* LUXURY DIGITAL COUNTDOWN */
 .luxury-countdown {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.625vw;             /* slightly bigger spacing */
+  gap: 0.625vw;
   background: rgba(20,20,20,0.9);
   border: 0.125vw solid gold;
   border-radius: 0.625vw;
   padding: 0.3125vw 1.25vw;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.5625vw;        /* 25% larger than previous 1.25vw */
+  font-size: 1.5625vw;
   font-weight: bold;
   color: gold;
   text-shadow: 0 0 0.156vw rgba(255,215,0,0.8), 0 0 0.312vw rgba(255,215,0,0.4);
@@ -99,7 +99,11 @@ button:hover { background:white; color:#203a43; }
   white-space: nowrap; 
   overflow: hidden;
   text-align: center;
-  margin-top: 10px;  
+  margin-top: 10px;
+
+  /* 25% SCALE INCREASE */
+  transform: scale(1.25);
+  transform-origin: center;
 }
 
 .luxury-countdown span {
@@ -121,11 +125,17 @@ button:hover { background:white; color:#203a43; }
 }
 
 @media (max-width:480px){
-  .luxury-countdown { font-size:2.5vw; padding: 1.25vw 2.5vw; }
+  .luxury-countdown { 
+    font-size:2.5vw; 
+    padding: 1.25vw 2.5vw;
+    transform: scale(1.25);
+    margin-top: 20px;
+  }
   .luxury-countdown span strong { font-size: 1.2em; }
 }
 </style>
 </head>
+
 <body>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
@@ -293,5 +303,6 @@ function startCountdown(){
   const interval=setInterval(updateCountdown,1000);
 }
 </script>
+
 </body>
 </html>
